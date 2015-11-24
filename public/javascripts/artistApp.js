@@ -20,7 +20,7 @@ myApp.controller('ArtistController', ['$log', 'ArtistService', function($log, Ar
 myApp.service('ArtistService', ['$http', function($http){
 
   this.getArtists = function() {
-    return $http.get('/getAllArtists')
+    return $http.get('/searchArtists/')
   };
 
 }]);

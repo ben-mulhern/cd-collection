@@ -17,22 +17,23 @@
 package server
 
 import org.vertx.scala.core._
-import org.vertx.scala.core.http.{HttpServerRequest, RouteMatcher}
+import org.vertx.scala.core.http._
 import org.vertx.scala.platform.Verticle
 import service.ArtistService
-import org.vertx.scala.core.json._
+import play.api.libs.json._
+import domain.Artist
 
 class CdCollectionServer extends Verticle {
 
   val rm = RouteMatcher()
   val artistService = new ArtistService
 
-  rm.get("/searchArtists/:searchTerm", { req: HttpServerRequest =>
-    val searchTerm = req.params().get("searchTerm").getOrElse(Nil).head
+  implicit val artistFormat = Json.format[Artist]
 
-    // Got problems here - need to convert to JSON successfully - use Play?
-    val artistList = Json.fromObjectString(artistService.getArtists(searchTerm).toString)
-    req.response().putHeader("content-type", "application/json").end(artistList.encodePrettily())
+  rm.getWithRegEx("/searchArtists/.*", { req: HttpServerRequest =>
+    val searchTerm = req.path.stripPrefix("/searchArtists/")
+    val artistList = artistService.getArtists(searchTerm)
+    req.response().putHeader("content-type", "application/json").end(Json.toJson(artistList).toString)
   })
 
   rm.get("/artists", { req: HttpServerRequest =>
