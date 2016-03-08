@@ -19,8 +19,10 @@ package server
 import org.vertx.scala.core._
 import org.vertx.scala.core.http._
 import org.vertx.scala.platform.Verticle
+import service.JsonConversions._
 import service.ArtistService
 import play.api.libs.json._
+import org.vertx.scala.core.buffer._
 import domain.Artist
 
 class CdCollectionServer extends Verticle {
@@ -28,30 +30,61 @@ class CdCollectionServer extends Verticle {
   val rm = RouteMatcher()
   val artistService = new ArtistService
 
-  implicit val artistFormat = Json.format[Artist]
+  // ===============================================================
+  // Pages
+  // ===============================================================
 
-  rm.getWithRegEx("/searchArtists/.*", { req: HttpServerRequest =>
-    val searchTerm = req.path.stripPrefix("/searchArtists/")
-    val artistList = artistService.getArtists(searchTerm)
-    req.response().putHeader("content-type", "application/json").end(Json.toJson(artistList).toString)
+  // Home page
+  rm.getWithRegEx("[/]{0,1}", { req: HttpServerRequest =>
+    req.response().sendFile("public/html/index.html")
   })
 
   rm.get("/artists", { req: HttpServerRequest =>
     req.response().sendFile("public/html/artists.html")
   })
 
+  // ===============================================================
+  // Services
+  // ===============================================================  
+
+  rm.getWithRegEx("/searchArtists/.*", { req: HttpServerRequest =>
+    val searchTerm = req.path.stripPrefix("/searchArtists/")
+    val artistList = artistService.getArtists(searchTerm)
+    sendJsonResponse(req, artistList)
+  })
+
+  rm.post("/createArtist/", { req: HttpServerRequest =>
+    req.bodyHandler { data: Buffer => 
+      val len = data.length()
+      val res = data.getString(0, len - 1)
+      req.response.end("Message received: " + res)
+    }  
+    
+  })
+
+  // ===============================================================
   // Static resources
+  // ===============================================================
+
   rm.getWithRegEx("/public/.*", { req: HttpServerRequest =>
     req.response().sendFile(req.path().tail)
   })
 
-  // Catch all - serve the index page
+  // ===============================================================
+  // Anything else - 404
+  // ===============================================================
+
   rm.getWithRegEx(".*", { req: HttpServerRequest =>
-    req.response().sendFile("public/html/index.html")
+    req.response().setStatusCode(404).sendFile("public/html/error.html")
   })
 
   override def start() {
+
     vertx.createHttpServer().requestHandler(rm).listen(8080)
   }  
+
+  def sendJsonResponse(req: HttpServerRequest, responseData: JsValue) = {
+    req.response().putHeader("content-type", "application/json").end(responseData.toString)
+  } 
 
 }

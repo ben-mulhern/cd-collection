@@ -11,4 +11,8 @@ class ArtistService {
   	artistDal.getArtists(searchTerm)
   }
 
+  def createArtist(artist: Artist): Int = {
+  	artistDal.createArtist(artist)
+  }
+
 }

@@ -53,21 +53,21 @@
            <div class="col-md-6">
              <table class="table table-bordered" data-ref="artistList">
                <tr>
-                 <th>Artist id</th>
-                 <th>Display name</th>
-                 <th>Sort name</th>
+                 <th>Artist</th>
                  <th>Parent artist</th>
+                 <th></th>
+                 <th></th>
                  <th></th>
                  <th></th>
                </tr>  
 
                <tr ng-repeat="artist in artistList.artists">
-                 <td>{{artist.id}}</td>
                  <td>{{artist.displayName}}</td>
-                 <td>{{artist.sortName}}</td>
                  <td>{{artist.parent.displayName}}</td>
                  <td><a href ="#" data-toggle="modal" data-target="#editPersonWindow">Edit</a></td>
                  <td><a href="#">Delete</a></td>
+                 <td><a href="#">Albums</a></td>
+                 <td><a href="#">Add album</a></td>
                </tr>  
 
             </table>

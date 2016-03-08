@@ -15,12 +15,22 @@ myApp.controller('ArtistController', ['$log', 'ArtistService', function($log, Ar
       $log.debug("It went wrong!");
     });
 
+  ArtistService.createArtist("Ben", "Ben");
+
 }]);
 
 myApp.service('ArtistService', ['$http', function($http){
 
   this.getArtists = function() {
     return $http.get('/searchArtists/')
+  };
+
+  this.createArtist = function(displayName, sortName) {
+    var data = {displayName: displayName, sortName: sortName}
+    $http.post('/createArtist/', data)
+      .success(function(response) {
+        console.log(response);
+       });
   };
 
 }]);
