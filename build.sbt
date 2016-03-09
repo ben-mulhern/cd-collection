@@ -10,7 +10,8 @@ libraryDependencies ++= Seq(
   "io.vertx" % "vertx-core" % "2.1.5",
   "io.vertx" % "vertx-platform" % "2.1.6",
   "com.h2database" % "h2" % "1.4.190",
-  "com.typesafe.play" % "play-json_2.11" % "2.4.4"
+  "com.typesafe.play" % "play-json_2.11" % "2.4.4",
+  "com.typesafe" % "config" % "1.3.0"
 )
 
 resolvers += "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases"

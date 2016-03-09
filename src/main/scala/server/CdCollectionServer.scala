@@ -24,11 +24,15 @@ import service.ArtistService
 import play.api.libs.json._
 import org.vertx.scala.core.buffer._
 import domain.Artist
+import com.typesafe.config._
+
 
 class CdCollectionServer extends Verticle {
 
   val rm = RouteMatcher()
   val artistService = new ArtistService
+  val conf: Config = ConfigFactory.parseResources("src/main/resources/application.conf")
+  val port = conf.getInt("cdserver.port")
 
   // ===============================================================
   // Pages
@@ -89,7 +93,7 @@ class CdCollectionServer extends Verticle {
 
   override def start() {
 
-    vertx.createHttpServer().requestHandler(rm).listen(8080)
+    vertx.createHttpServer().requestHandler(rm).listen(port)
   }  
 
   def sendJsonResponse(req: HttpServerRequest, responseData: JsValue) = {
