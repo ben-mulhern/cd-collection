@@ -51,13 +51,22 @@ class CdCollectionServer extends Verticle {
     val searchTerm = req.path.stripPrefix("/searchArtists/")
     val artistList = artistService.getArtists(searchTerm)
     sendJsonResponse(req, artistList)
-  })
+  }) 
 
   rm.post("/createArtist/", { req: HttpServerRequest =>
     req.bodyHandler { data: Buffer => 
-      val len = data.length()
-      val res = data.getString(0, len - 1)
-      req.response.end("Message received: " + res)
+      val raw = data.getString(0, data.length())
+      println(raw)
+      val rawJson = Json.parse(raw)
+      println(Json.prettyPrint(rawJson))
+      rawJson.validate[Artist] match {
+        case s: JsSuccess[Artist] =>  {
+          val artist = s.get
+          val res = artistService.createArtist(artist)
+          req.response.end("Artist created?: " + res)
+        }
+        case e => req.response.end("JSON error" + e.toString)
+      }
     }  
     
   })
