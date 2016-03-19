@@ -31,8 +31,6 @@ class CdCollectionServer extends Verticle {
 
   val rm = RouteMatcher()
   val artistService = new ArtistService
-  val conf: Config = ConfigFactory.parseResources("src/main/resources/application.conf")
-  val port = conf.getInt("cdserver.port")
 
   // ===============================================================
   // Pages
@@ -60,9 +58,7 @@ class CdCollectionServer extends Verticle {
   rm.post("/createArtist/", { req: HttpServerRequest =>
     req.bodyHandler { data: Buffer => 
       val raw = data.getString(0, data.length())
-      println(raw)
       val rawJson = Json.parse(raw)
-      println(Json.prettyPrint(rawJson))
       rawJson.validate[Artist] match {
         case s: JsSuccess[Artist] =>  {
           val artist = s.get
@@ -93,7 +89,7 @@ class CdCollectionServer extends Verticle {
 
   override def start() {
 
-    vertx.createHttpServer().requestHandler(rm).listen(port)
+    vertx.createHttpServer().requestHandler(rm).listen(Config.port)
   }  
 
   def sendJsonResponse(req: HttpServerRequest, responseData: JsValue) = {

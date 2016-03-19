@@ -15,7 +15,7 @@ myApp.controller('ArtistController', ['$log', 'ArtistService', function($log, Ar
       $log.debug("It went wrong!");
     });
 
-  ArtistService.createArtist("Ben", "Ben");
+  //ArtistService.createArtist("Ben", "Ben");
 
 }]);
 
