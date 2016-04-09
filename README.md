@@ -1,18 +1,24 @@
 # cd-collection
-Basic web app to learn some Angular, JS and Vertx. Uses Scala, Sqlest and H2 db for backend.
+Basic web app to learn some Angular, ScalaJS and Http4s. Uses Scala, Sqlest and H2 db for backend.
 
 #To-do
-1) Route-matcher - Need to write my own because Vertx one only works with Scala 2.10, and Sqlest only works with 2.11
+1) Re-write JS with ScalaJS
 
-2) Refactor - Need to refactor all the services and the server class, serialisation etc
+2) Address issues with serialisation (recursion, non-standard characters)
 
-3) Finish the other pages (albums)
+3) Finish the other pages & services (albums)
 
-4) Auto-create the DB on first run
+4) Auto-create the DB on first run (or ship with an empty db)
+
+5) Figure out how all the Angular dependencies work - do I need to check them into my repo or can I get SBT to handle it?
+
+6) Add a favicon
 
 #To run
-Currently you have to manually create the tables in the H2 db (see dal and ddl source for details)
+Currently you have to manually create the tables in the H2 db (see SQL source for details)
 
 To run from SBT:
 
-sbt "run-main org.vertx.java.platform.impl.cli.Starter run scala:server.CdCollectionServer"
+~re-start 
+
+to fire up server, then go to localhost:8080 (or most interesting page is localhost:8080/public/artists.html)
