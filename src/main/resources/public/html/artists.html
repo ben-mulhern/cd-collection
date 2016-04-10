@@ -47,6 +47,43 @@
     
       <article ng-controller="ArtistController as artistList">
 
+        <div class="row">
+          <!-- Button trigger modal -->
+          <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addArtistWindow">
+            Add new person
+          </button>
+        </div>
+        
+        <div class="row">  
+
+          <!-- Modal -->
+          <div class="modal fade" id="addArtistWindow" tabindex="-1" role="dialog" aria-labelledby="addArtistWindow">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title" id="addArtistWindow">Add artist</h4>
+                </div>
+
+                
+                <form ng-submit="artistList.createArtist()">
+                  <div class="modal-body">
+                    Artist name: <input type = "text" name="artistname" ng-model="artistList.formArtistName" /> <br />
+                    Sort name: <input type = "text" name="sortname" ng-model="artistList.formSortName" /> <br />
+                    <!-- <input type = "text" name="parentartistId" ng-model="parentArtistId" /> -->
+                  </div>  
+
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Add new artist</button>
+                  </div>
+                </form>
+
+              </div>  
+            </div>  
+          </div>
+        </div>
+
         <span ng-show="artistList.dataError" style="color:red">Error retrieving Artist list.</span>
       
          <div class="row">
@@ -84,5 +121,6 @@
   <script src="/public/javascripts/bower_components/angular/angular.js"></script>
   <script src="/public/javascripts/bower_components/angular-route/angular-route.js"></script>
   <script src="/public/javascripts/artistApp.js"></script>  
-</body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="/public/javascripts/bootstrap.min.js"></script>
 </html>

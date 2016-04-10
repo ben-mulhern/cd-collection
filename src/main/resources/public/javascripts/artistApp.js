@@ -6,6 +6,8 @@ myApp.controller('ArtistController', ['$log', 'ArtistService', function($log, Ar
 
   this.artists;
   this.dataError = false;
+  this.formArtistName;
+  this.formSortName;
 
   ArtistService.getArtists().then(function(response) {
        self.artists = response.data;
@@ -15,7 +17,10 @@ myApp.controller('ArtistController', ['$log', 'ArtistService', function($log, Ar
       $log.debug("It went wrong!");
     });
 
-  //ArtistService.createArtist("Ben", "Ben");
+    this.createArtist = function() {
+      ArtistService.createArtist(self.formArtistName, self.formSortName);
+      console.log("This was passed into controller: " + self.formArtistName + ", " + self.formSortName)
+    };
 
 }]);
 
@@ -26,8 +31,8 @@ myApp.service('ArtistService', ['$http', function($http){
   };
 
   this.createArtist = function(displayName, sortName) {
-    var data = {displayName: displayName, sortName: sortName}
-    $http.post('/createArtist/', data)
+    var data = {id: [0], displayName: displayName, sortName: sortName}
+    $http.post('/artist/create', data)
       .success(function(response) {
         console.log(response);
        });

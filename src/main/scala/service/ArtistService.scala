@@ -24,14 +24,14 @@ object ArtistService extends LazyLogging {
         .putHeaders(Header("Access-Control-Allow-Origin", "*"))
 
 
-    case req @ POST -> root / "artist" / "create" =>
-      Ok(req.body).putHeaders(`Content-Type`(`text/plain`))
+    case req @ POST -> Root / "artist" / "create" =>
+      req.decode[String] { data =>
+        logger.info("Received artist create request for this: " + data)
+        val a: Artist = upickle.default.read[Artist](data)
+        val res: Int = artistDal.createArtist(a)
+        Ok("That worked!")  
+      }
 
   }
-
-
-    //def createArtist(artist: Artist): Int = {
-  	//artistDal.createArtist(artist)
-
 
 }
