@@ -4,7 +4,7 @@ Basic web app to learn some Angular, ScalaJS and Http4s. Uses Scala, Sqlest and 
 #To-do
 1) Re-write JS with ScalaJS
 
-2) Address issues with serialisation (recursion, non-standard characters, option handling). Probably want an alternative serialisation library.
+2) Address issues with serialisation (non-standard characters). Probably want an alternative serialisation library.
 
 3) Finish the other pages & services (albums)
 
@@ -14,7 +14,7 @@ Basic web app to learn some Angular, ScalaJS and Http4s. Uses Scala, Sqlest and 
 
 6) Add a favicon
 
-7) Handle window forms better
+7) Handle window forms better (well, at all)
 
 8) Add artist search function
 

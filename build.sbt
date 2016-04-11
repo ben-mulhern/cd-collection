@@ -9,7 +9,7 @@ scalaVersion := "2.11.8"
 libraryDependencies ++= Seq(
   "com.typesafe" % "config" % "1.3.0",
   "uk.co.jhc" %% "sqlest" % "0.7.6",
-  "com.lihaoyi" %% "upickle" % "0.3.9",
+  "org.json4s" %% "json4s-native" % "3.3.0",
   "com.typesafe.scala-logging" %% "scala-logging" % "3.1.0",
   "org.scalatest" %% "scalatest" % "2.2.6" % "test",
   "com.h2database" % "h2" % "1.4.191",

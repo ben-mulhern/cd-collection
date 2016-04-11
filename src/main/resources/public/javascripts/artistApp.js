@@ -31,7 +31,7 @@ myApp.service('ArtistService', ['$http', function($http){
   };
 
   this.createArtist = function(displayName, sortName) {
-    var data = {id: [0], displayName: displayName, sortName: sortName}
+    var data = {displayName: displayName, sortName: sortName}
     $http.post('/artist/create', data)
       .success(function(response) {
         console.log(response);

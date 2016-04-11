@@ -9,8 +9,13 @@ import org.http4s.headers._
 import org.http4s.MediaType._
 import org.http4s.server._
 import org.http4s.server.blaze._
+import org.json4s._
+import org.json4s.native.Serialization
+import org.json4s.native.Serialization.{read, write}
 
 object ArtistService extends LazyLogging {
+
+  implicit val formats = Serialization.formats(NoTypeHints)
 
   val artistDal = new ArtistDal {}
 
@@ -19,7 +24,7 @@ object ArtistService extends LazyLogging {
     case GET -> Root / "artist" / searchTerm =>
       logger.info(s"Received request artist / $searchTerm")
       val artistList: List[Artist] = artistDal.getArtists(searchTerm)
-      val artistJson = upickle.default.write(artistList)
+      val artistJson = write(artistList)
       Ok(artistJson).withContentType(Some(`Content-Type`(`application/json`)))
         .putHeaders(Header("Access-Control-Allow-Origin", "*"))
 
@@ -27,7 +32,7 @@ object ArtistService extends LazyLogging {
     case req @ POST -> Root / "artist" / "create" =>
       req.decode[String] { data =>
         logger.info("Received artist create request for this: " + data)
-        val a: Artist = upickle.default.read[Artist](data)
+        val a: Artist = read[Artist](data)
         val res: Int = artistDal.createArtist(a)
         Ok("That worked!")  
       }
