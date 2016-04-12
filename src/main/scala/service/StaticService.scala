@@ -24,7 +24,7 @@ object StaticService extends LazyLogging {
     // Nicer URIs for the pages
     case req @ GET -> Root =>
       logger.info("Received page request for index page")
-      val resourcePath = "/public/html/index.html"
+      val resourcePath = "/public/html/artists.html"
       StaticFile.fromResource(resourcePath, Some(req))
         .map(Task.now)
         .getOrElse(NotFound())  
