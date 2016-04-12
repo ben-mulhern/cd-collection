@@ -33,8 +33,8 @@ object ArtistService extends LazyLogging {
       req.decode[String] { data =>
         logger.info("Received artist create request for this: " + data)
         val a: Artist = read[Artist](data)
-        val res: Int = artistDal.createArtist(a)
-        Ok("That worked!")  
+        val result = artistDal.createArtist(a)
+        Ok(result.toString)  
       }
 
   }

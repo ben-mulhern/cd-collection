@@ -4,6 +4,7 @@ import sqlest._
 import domain.Artist
 import dal.CdExtractors._
 import dal.table._
+import response._
 
 trait ArtistDal extends SqlestDb {
 
@@ -15,15 +16,15 @@ trait ArtistDal extends SqlestDb {
       .from(ArtistTable)
       .leftJoin(ArtistLinkTable)
         .on(ArtistTable.id === ArtistLinkTable.relatedArtist)
-      //.leftJoin(SecondArtistTable)
-      //  .on(ArtistLinkTable.parentArtist === SecondArtistTable.id)
+      .leftJoin(SecondArtistTable)
+        .on(ArtistLinkTable.parentArtist === SecondArtistTable.id)
       .where(upper(ArtistTable.displayName) like wildCardSearch) 
       .orderBy(ArtistTable.sortName)
       .extractAll(artistExtractor)
    
   }
 
-  def createArtist(artist: Artist): Int = {        
+  def createArtist(artist: Artist): ActionResponse[Artist] = {        
 
     database.withTransaction { implicit transaction =>
 
@@ -39,16 +40,18 @@ trait ArtistDal extends SqlestDb {
           .from(ArtistTable)
           .fetchHead
 
-      /*if (insertStatement == 1 && artist.parent.nonEmpty)
+      if (insertStatement == 1 && artist.parent.nonEmpty)
         insert
           .into(ArtistLinkTable)
           .values(ArtistLinkTable.parentArtist -> artist.parent.get.id,
             ArtistLinkTable.relatedArtist -> newArtistId)
-          .execute*/
+          .execute
+
+      ActionSuccess(artist.copy(id = Some(newArtistId.getOrElse(0)))) 
 
     }
 
-    1   
+      
 
   }
 
