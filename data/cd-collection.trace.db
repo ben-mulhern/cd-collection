@@ -1,0 +1,892 @@
+08-31 13:03:45 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Unknown data type: "NOT"; SQL statement:
+CREATE TABLE album_side (
+      
+  album_id INT NOT NULL,
+  side_number INT NOT NULL,
+  side_name NOT NULL, 
+
+  CONSTRAINT album_side_0001 PRIMARY KEY(album_id, side_number),
+  CONSTRAINT album_side_0002 FOREIGN KEY(album_id) REFERENCES album(album_id)
+    ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT album_side_0003 CHECK(side_number > 0),
+  CONSTRAINT album_side_0004 CHECK(side_name <> '')  
+  
+) [50004-187]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:4000)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:3863)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:5771)
+	at org.h2.command.Parser.parseCreate(Parser.java:4159)
+	at org.h2.command.Parser.parsePrepared(Parser.java:350)
+	at org.h2.command.Parser.parse(Parser.java:305)
+	at org.h2.command.Parser.parse(Parser.java:277)
+	at org.h2.command.Parser.prepareCommand(Parser.java:242)
+	at org.h2.engine.Session.prepareLocal(Session.java:461)
+	at org.h2.engine.Session.prepareCommand(Session.java:403)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1189)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:170)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:158)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1390)
+	at org.h2.server.web.WebApp.query(WebApp.java:1063)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1025)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1012)
+	at org.h2.server.web.WebThread.process(WebThread.java:168)
+	at org.h2.server.web.WebThread.run(WebThread.java:93)
+	at java.lang.Thread.run(Unknown Source)
+08-31 13:06:38 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "CREATE TABLE ARTIST_LINK (
+      
+  PARENT_ARTIST INT NOT NULL,
+  RELATED_ARTIST INT NOT NULL 
+
+  CONSTRAINT ARTIST_LINK_0001 PRIMARY KEY([*]PARENT_ARTIST, RELATED_ARTIST),
+  CONSTRAINT ARTIST_LINK_0002 FOREIGN KEY(PARENT_ARTIST) REFERENCES ARTIST(ARTIST_ID)
+    ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT ARTIST_LINK_0003 FOREIGN KEY(RELATED_ARTIST) REFERENCES ARTIST(ARTIST_ID)
+    ON DELETE RESTRICT ON UPDATE RESTRICT
+
+) "; expected "HASH, AUTO_INCREMENT, NOT, NULL, CHECK, REFERENCES, ,, )"; SQL statement:
+CREATE TABLE artist_link (
+      
+  parent_artist INT NOT NULL,
+  related_artist INT NOT NULL 
+
+  CONSTRAINT artist_link_0001 PRIMARY KEY(parent_artist, related_artist),
+  CONSTRAINT artist_link_0002 FOREIGN KEY(parent_artist) REFERENCES artist(artist_id)
+    ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT artist_link_0003 FOREIGN KEY(related_artist) REFERENCES artist(artist_id)
+    ON DELETE RESTRICT ON UPDATE RESTRICT
+
+) [42001-187]
+08-31 13:09:28 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "INSERT INTO ALBUM_TYPE VALUES
+('UNP', 'Unplugged/live acoustic'),
+('BO'), 'Best of'[*]),
+('BSR', 'B-sides & rarities'),
+('COM', 'Compilation'),
+('COV', 'Covers'),
+('EP'. 'Extended player'),
+('LIV', 'Live'),
+('OST', 'Soundtrack'),
+('RDX', 'Redux'),
+('SEP', 'Split EP'), 
+('SGL', 'Single'),
+('STU', 'Studio album'),
+('RMS', 'Remaster') "; SQL statement:
+insert into album_type values
+('UNP', 'Unplugged/live acoustic'),
+('BO'), 'Best of'),
+('BSR', 'B-sides & rarities'),
+('COM', 'Compilation'),
+('COV', 'Covers'),
+('EP'. 'Extended player'),
+('LIV', 'Live'),
+('OST', 'Soundtrack'),
+('RDX', 'Redux'),
+('SEP', 'Split EP'), 
+('SGL', 'Single'),
+('STU', 'Studio album'),
+('RMS', 'Remaster') [42000-187]
+08-31 13:09:41 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "INSERT INTO ALBUM_TYPE VALUES(
+('UNP', 'Unplugged/live acoustic'),
+('BO'), 'Best of'),
+('BSR', 'B-sides & rarities'),
+('COM', 'Compilation'),
+('COV', 'Covers'),
+('EP'.[*] 'Extended player'),
+('LIV', 'Live'),
+('OST', 'Soundtrack'),
+('RDX', 'Redux'),
+('SEP', 'Split EP'), 
+('SGL', 'Single'),
+('STU', 'Studio album'),
+('RMS', 'Remaster')) "; expected "[, ::, *, /, %, +, -, ||, ~, !~, NOT, LIKE, REGEXP, IS, IN, BETWEEN, AND, OR, ,, )"; SQL statement:
+insert into album_type values(
+('UNP', 'Unplugged/live acoustic'),
+('BO'), 'Best of'),
+('BSR', 'B-sides & rarities'),
+('COM', 'Compilation'),
+('COV', 'Covers'),
+('EP'. 'Extended player'),
+('LIV', 'Live'),
+('OST', 'Soundtrack'),
+('RDX', 'Redux'),
+('SEP', 'Split EP'), 
+('SGL', 'Single'),
+('STU', 'Studio album'),
+('RMS', 'Remaster')) [42001-187]
+08-31 13:11:12 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "INSERT INTO ALBUM_TYPE VALUES
+('UNP', 'Unplugged/live acoustic'),
+('BO'), 'Best of'[*]),
+('BSR', 'B-sides & rarities'),
+('COM', 'Compilation'),
+('COV', 'Covers'),
+('EP'. 'Extended player'),
+('LIV', 'Live'),
+('OST', 'Soundtrack'),
+('RDX', 'Redux'),
+('SEP', 'Split EP'), 
+('SGL', 'Single'),
+('STU', 'Studio album'),
+('RMS', 'Remaster') "; SQL statement:
+insert into album_type values
+('UNP', 'Unplugged/live acoustic'),
+('BO'), 'Best of'),
+('BSR', 'B-sides & rarities'),
+('COM', 'Compilation'),
+('COV', 'Covers'),
+('EP'. 'Extended player'),
+('LIV', 'Live'),
+('OST', 'Soundtrack'),
+('RDX', 'Redux'),
+('SEP', 'Split EP'), 
+('SGL', 'Single'),
+('STU', 'Studio album'),
+('RMS', 'Remaster') [42000-187]
+08-31 13:11:33 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "INSERT INTO ALBUM_TYPE VALUES
+('UNP', 'Unplugged/live acoustic'),
+('BO'), 'Best of'[*]),
+('BSR', 'B-sides & rarities'),
+('COM', 'Compilation'),
+('COV', 'Covers'),
+('EP'. 'Extended player'),
+('LIV', 'Live'),
+('OST', 'Soundtrack'),
+('RDX', 'Redux'),
+('SEP', 'Split EP'), 
+('SGL', 'Single'),
+('STU', 'Studio album'),
+('RMS', 'Remaster') "; SQL statement:
+insert into album_type values
+('UNP', 'Unplugged/live acoustic'),
+('BO'), 'Best of'),
+('BSR', 'B-sides & rarities'),
+('COM', 'Compilation'),
+('COV', 'Covers'),
+('EP'. 'Extended player'),
+('LIV', 'Live'),
+('OST', 'Soundtrack'),
+('RDX', 'Redux'),
+('SEP', 'Split EP'), 
+('SGL', 'Single'),
+('STU', 'Studio album'),
+('RMS', 'Remaster') [42000-187]
+08-31 13:11:59 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "INSERT INTO ALBUM_TYPE VALUES
+('UNP', 'Unplugged/live acoustic'),
+('BO'), 'Best of'[*]),
+('BSR', 'B-sides & rarities'),
+('COM', 'Compilation'),
+('COV', 'Covers'),
+('EP'. 'Extended player'),
+('LIV', 'Live'),
+('OST', 'Soundtrack'),
+('RDX', 'Redux'),
+('SEP', 'Split EP'), 
+('SGL', 'Single'),
+('STU', 'Studio album'),
+('RMS', 'Remaster') "; SQL statement:
+insert into album_type values
+('UNP', 'Unplugged/live acoustic'),
+('BO'), 'Best of'),
+('BSR', 'B-sides & rarities'),
+('COM', 'Compilation'),
+('COV', 'Covers'),
+('EP'. 'Extended player'),
+('LIV', 'Live'),
+('OST', 'Soundtrack'),
+('RDX', 'Redux'),
+('SEP', 'Split EP'), 
+('SGL', 'Single'),
+('STU', 'Studio album'),
+('RMS', 'Remaster') [42000-187]
+08-31 13:12:16 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "INSERT INTO ALBUM_TYPE VALUES
+('UNP', 'Unplugged/live acoustic'),
+('BSR', 'B-sides & rarities'),
+('COM', 'Compilation'),
+('COV', 'Covers'),
+('EP'.[*] 'Extended player'),
+('LIV', 'Live'),
+('OST', 'Soundtrack'),
+('RDX', 'Redux'),
+('SEP', 'Split EP'), 
+('SGL', 'Single'),
+('STU', 'Studio album'),
+('RMS', 'Remaster') "; expected "[, ::, *, /, %, +, -, ||, ~, !~, NOT, LIKE, REGEXP, IS, IN, BETWEEN, AND, OR, ,, )"; SQL statement:
+insert into album_type values
+('UNP', 'Unplugged/live acoustic'),
+('BSR', 'B-sides & rarities'),
+('COM', 'Compilation'),
+('COV', 'Covers'),
+('EP'. 'Extended player'),
+('LIV', 'Live'),
+('OST', 'Soundtrack'),
+('RDX', 'Redux'),
+('SEP', 'Split EP'), 
+('SGL', 'Single'),
+('STU', 'Studio album'),
+('RMS', 'Remaster') [42001-187]
+08-31 13:12:33 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "INSERT INTO ALBUM_TYPE VALUES
+('UNP', 'Unplugged/live acoustic'),
+('BO'), 'Best of'[*]),
+('BSR', 'B-sides & rarities'),
+('COM', 'Compilation'),
+('COV', 'Covers'),
+('EP', 'Extended player'),
+('LIV', 'Live'),
+('OST', 'Soundtrack'),
+('RDX', 'Redux'),
+('SEP', 'Split EP'), 
+('SGL', 'Single'),
+('STU', 'Studio album'),
+('RMS', 'Remaster') "; SQL statement:
+insert into album_type values
+('UNP', 'Unplugged/live acoustic'),
+('BO'), 'Best of'),
+('BSR', 'B-sides & rarities'),
+('COM', 'Compilation'),
+('COV', 'Covers'),
+('EP', 'Extended player'),
+('LIV', 'Live'),
+('OST', 'Soundtrack'),
+('RDX', 'Redux'),
+('SEP', 'Split EP'), 
+('SGL', 'Single'),
+('STU', 'Studio album'),
+('RMS', 'Remaster') [42000-187]
+08-31 17:30:03 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "CREATE TABLE ARTIST_LINK (
+      
+  PARENT_ARTIST INT NOT NULL,
+  RELATED_ARTIST INT NOT NULL, 
+
+  CONSTRAINT ARTIST_LINK_0001 PRIMARY KEY(PARENT_ARTIST, RELATED_ARTIST),
+  CONSTRAINT ARTIST_LINK_0002 FOREIGN KEY(PARENT_ARTIST) REFERENCES ARTIST(ARTIST_ID)
+    ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT ARTIST_LINK_0003 FOREIGN KEY(RELATED_ARTIST) REFERENCES ARTIST(ARTIST_ID)
+    ON DELETE RESTRICT ON UPDATE RESTRICT
+  CONSTRAINT[*] ARTIST_LINK_0004 CHECK(PARENT_ARTIST <> RELATED_ARTIST)
+
+) "; expected "ON, NOT, DEFERRABLE, NOCHECK, CHECK, ,, )"; SQL statement:
+CREATE TABLE artist_link (
+      
+  parent_artist INT NOT NULL,
+  related_artist INT NOT NULL, 
+
+  CONSTRAINT artist_link_0001 PRIMARY KEY(parent_artist, related_artist),
+  CONSTRAINT artist_link_0002 FOREIGN KEY(parent_artist) REFERENCES artist(artist_id)
+    ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT artist_link_0003 FOREIGN KEY(related_artist) REFERENCES artist(artist_id)
+    ON DELETE RESTRICT ON UPDATE RESTRICT
+  CONSTRAINT artist_link_0004 CHECK(parent_artist <> related_artist)
+
+) [42001-187]
+08-31 17:58:35 database: flush
+org.h2.message.DbException: General error: "java.lang.IllegalStateException: The file is locked: nio:C:/Users/Ben/Documents/cd-collection/data/cd-collection.mv.db [1.4.187/7]" [50000-187]
+	at org.h2.message.DbException.get(DbException.java:168)
+	at org.h2.message.DbException.convert(DbException.java:295)
+	at org.h2.mvstore.db.MVTableEngine$1.uncaughtException(MVTableEngine.java:93)
+	at org.h2.mvstore.MVStore.panic(MVStore.java:368)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:351)
+	at org.h2.mvstore.MVStore$Builder.open(MVStore.java:2782)
+	at org.h2.mvstore.db.MVTableEngine$Store.<init>(MVTableEngine.java:162)
+	at org.h2.mvstore.db.MVTableEngine.init(MVTableEngine.java:98)
+	at org.h2.engine.Database.getPageStore(Database.java:2389)
+	at org.h2.engine.Database.open(Database.java:669)
+	at org.h2.engine.Database.openDatabase(Database.java:266)
+	at org.h2.engine.Database.<init>(Database.java:260)
+	at org.h2.engine.Engine.openSession(Engine.java:60)
+	at org.h2.engine.Engine.openSession(Engine.java:167)
+	at org.h2.engine.Engine.createSessionAndValidate(Engine.java:145)
+	at org.h2.engine.Engine.createSession(Engine.java:128)
+	at org.h2.engine.Engine.createSession(Engine.java:26)
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:347)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:108)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:92)
+	at org.h2.Driver.connect(Driver.java:72)
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:92)
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:98)
+	at com.zaxxer.hikari.pool.BaseHikariPool.addConnection(BaseHikariPool.java:438)
+	at com.zaxxer.hikari.pool.BaseHikariPool.initializeConnections(BaseHikariPool.java:540)
+	at com.zaxxer.hikari.pool.BaseHikariPool.<init>(BaseHikariPool.java:171)
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:60)
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:48)
+	at com.zaxxer.hikari.HikariDataSource.<init>(HikariDataSource.java:80)
+	at play.api.db.HikariCPConnectionPool$$anonfun$1.apply(HikariCPModule.scala:58)
+	at play.api.db.HikariCPConnectionPool$$anonfun$1.apply(HikariCPModule.scala:54)
+	at scala.util.Try$.apply(Try.scala:191)
+	at play.api.db.HikariCPConnectionPool.create(HikariCPModule.scala:54)
+	at play.api.db.PooledDatabase.createDataSource(Databases.scala:199)
+	at play.api.db.DefaultDatabase.dataSource$lzycompute(Databases.scala:124)
+	at play.api.db.DefaultDatabase.dataSource(Databases.scala:122)
+	at play.api.db.DefaultDatabase.getConnection(Databases.scala:143)
+	at play.api.db.DefaultDatabase.getConnection(Databases.scala:139)
+	at play.api.db.DefaultDBApi$$anonfun$connect$1.apply(DefaultDBApi.scala:44)
+	at play.api.db.DefaultDBApi$$anonfun$connect$1.apply(DefaultDBApi.scala:42)
+	at scala.collection.immutable.List.foreach(List.scala:381)
+	at play.api.db.DefaultDBApi.connect(DefaultDBApi.scala:42)
+	at play.api.db.DBApiProvider.get$lzycompute(DBModule.scala:72)
+	at play.api.db.DBApiProvider.get(DBModule.scala:62)
+	at play.api.db.DBApiProvider.get(DBModule.scala:58)
+	at com.google.inject.internal.ProviderInternalFactory.provision(ProviderInternalFactory.java:81)
+	at com.google.inject.internal.BoundProviderFactory.provision(BoundProviderFactory.java:72)
+	at com.google.inject.internal.ProviderInternalFactory.circularGet(ProviderInternalFactory.java:61)
+	at com.google.inject.internal.BoundProviderFactory.get(BoundProviderFactory.java:62)
+	at com.google.inject.internal.SingleFieldInjector.inject(SingleFieldInjector.java:54)
+	at com.google.inject.internal.MembersInjectorImpl.injectMembers(MembersInjectorImpl.java:132)
+	at com.google.inject.internal.MembersInjectorImpl$1.call(MembersInjectorImpl.java:93)
+	at com.google.inject.internal.MembersInjectorImpl$1.call(MembersInjectorImpl.java:80)
+	at com.google.inject.internal.InjectorImpl.callInContext(InjectorImpl.java:1103)
+	at com.google.inject.internal.MembersInjectorImpl.injectAndNotify(MembersInjectorImpl.java:80)
+	at com.google.inject.internal.MembersInjectorImpl.injectMembers(MembersInjectorImpl.java:62)
+	at com.google.inject.internal.InjectorImpl.injectMembers(InjectorImpl.java:984)
+	at com.google.inject.util.Providers$GuicifiedProviderWithDependencies.initialize(Providers.java:149)
+	at com.google.inject.util.Providers$GuicifiedProviderWithDependencies$$FastClassByGuice$$2a7177aa.invoke(<generated>)
+	at com.google.inject.internal.cglib.reflect.$FastMethod.invoke(FastMethod.java:53)
+	at com.google.inject.internal.SingleMethodInjector$1.invoke(SingleMethodInjector.java:57)
+	at com.google.inject.internal.SingleMethodInjector.inject(SingleMethodInjector.java:91)
+	at com.google.inject.internal.MembersInjectorImpl.injectMembers(MembersInjectorImpl.java:132)
+	at com.google.inject.internal.MembersInjectorImpl$1.call(MembersInjectorImpl.java:93)
+	at com.google.inject.internal.MembersInjectorImpl$1.call(MembersInjectorImpl.java:80)
+	at com.google.inject.internal.InjectorImpl.callInContext(InjectorImpl.java:1092)
+	at com.google.inject.internal.MembersInjectorImpl.injectAndNotify(MembersInjectorImpl.java:80)
+	at com.google.inject.internal.Initializer$InjectableReference.get(Initializer.java:174)
+	at com.google.inject.internal.Initializer.injectAll(Initializer.java:108)
+	at com.google.inject.internal.InternalInjectorCreator.injectDynamically(InternalInjectorCreator.java:174)
+	at com.google.inject.internal.InternalInjectorCreator.build(InternalInjectorCreator.java:110)
+	at com.google.inject.Guice.createInjector(Guice.java:96)
+	at com.google.inject.Guice.createInjector(Guice.java:73)
+	at com.google.inject.Guice.createInjector(Guice.java:62)
+	at play.api.inject.guice.GuiceBuilder.injector(GuiceInjectorBuilder.scala:126)
+	at play.api.inject.guice.GuiceApplicationBuilder.build(GuiceApplicationBuilder.scala:93)
+	at play.api.inject.guice.GuiceApplicationLoader.load(GuiceApplicationLoader.scala:21)
+	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1$$anonfun$apply$1$$anonfun$1$$anonfun$2.apply(DevServerStart.scala:153)
+	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1$$anonfun$apply$1$$anonfun$1$$anonfun$2.apply(DevServerStart.scala:150)
+	at play.utils.Threads$.withContextClassLoader(Threads.scala:21)
+	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1$$anonfun$apply$1$$anonfun$1.apply(DevServerStart.scala:150)
+	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1$$anonfun$apply$1$$anonfun$1.apply(DevServerStart.scala:121)
+	at scala.Option.map(Option.scala:146)
+	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1$$anonfun$apply$1.apply(DevServerStart.scala:121)
+	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1$$anonfun$apply$1.apply(DevServerStart.scala:119)
+	at scala.util.Success.flatMap(Try.scala:230)
+	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1.apply(DevServerStart.scala:119)
+	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1.apply(DevServerStart.scala:111)
+	at scala.concurrent.impl.Future$PromiseCompletingRunnable.liftedTree1$1(Future.scala:24)
+	at scala.concurrent.impl.Future$PromiseCompletingRunnable.run(Future.scala:24)
+	at java.util.concurrent.ForkJoinTask$RunnableExecuteAction.exec(Unknown Source)
+	at java.util.concurrent.ForkJoinTask.doExec(Unknown Source)
+	at java.util.concurrent.ForkJoinPool$WorkQueue.runTask(Unknown Source)
+	at java.util.concurrent.ForkJoinPool.runWorker(Unknown Source)
+	at java.util.concurrent.ForkJoinWorkerThread.run(Unknown Source)
+Caused by: org.h2.jdbc.JdbcSQLException: General error: "java.lang.IllegalStateException: The file is locked: nio:C:/Users/Ben/Documents/cd-collection/data/cd-collection.mv.db [1.4.187/7]" [50000-187]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	... 95 more
+Caused by: java.lang.IllegalStateException: The file is locked: nio:C:/Users/Ben/Documents/cd-collection/data/cd-collection.mv.db [1.4.187/7]
+	at org.h2.mvstore.DataUtils.newIllegalStateException(DataUtils.java:773)
+	at org.h2.mvstore.FileStore.open(FileStore.java:172)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:337)
+	... 90 more
+08-31 18:01:05 database: flush
+org.h2.message.DbException: General error: "java.lang.IllegalStateException: The file is locked: nio:C:/Users/Ben/Documents/cd-collection/data/cd-collection.mv.db [1.4.187/7]" [50000-187]
+	at org.h2.message.DbException.get(DbException.java:168)
+	at org.h2.message.DbException.convert(DbException.java:295)
+	at org.h2.mvstore.db.MVTableEngine$1.uncaughtException(MVTableEngine.java:93)
+	at org.h2.mvstore.MVStore.panic(MVStore.java:368)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:351)
+	at org.h2.mvstore.MVStore$Builder.open(MVStore.java:2782)
+	at org.h2.mvstore.db.MVTableEngine$Store.<init>(MVTableEngine.java:162)
+	at org.h2.mvstore.db.MVTableEngine.init(MVTableEngine.java:98)
+	at org.h2.engine.Database.getPageStore(Database.java:2389)
+	at org.h2.engine.Database.open(Database.java:669)
+	at org.h2.engine.Database.openDatabase(Database.java:266)
+	at org.h2.engine.Database.<init>(Database.java:260)
+	at org.h2.engine.Engine.openSession(Engine.java:60)
+	at org.h2.engine.Engine.openSession(Engine.java:167)
+	at org.h2.engine.Engine.createSessionAndValidate(Engine.java:145)
+	at org.h2.engine.Engine.createSession(Engine.java:128)
+	at org.h2.engine.Engine.createSession(Engine.java:26)
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:347)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:108)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:92)
+	at org.h2.Driver.connect(Driver.java:72)
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:92)
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:98)
+	at com.zaxxer.hikari.pool.BaseHikariPool.addConnection(BaseHikariPool.java:438)
+	at com.zaxxer.hikari.pool.BaseHikariPool.initializeConnections(BaseHikariPool.java:540)
+	at com.zaxxer.hikari.pool.BaseHikariPool.<init>(BaseHikariPool.java:171)
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:60)
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:48)
+	at com.zaxxer.hikari.HikariDataSource.<init>(HikariDataSource.java:80)
+	at play.api.db.HikariCPConnectionPool$$anonfun$1.apply(HikariCPModule.scala:58)
+	at play.api.db.HikariCPConnectionPool$$anonfun$1.apply(HikariCPModule.scala:54)
+	at scala.util.Try$.apply(Try.scala:191)
+	at play.api.db.HikariCPConnectionPool.create(HikariCPModule.scala:54)
+	at play.api.db.PooledDatabase.createDataSource(Databases.scala:199)
+	at play.api.db.DefaultDatabase.dataSource$lzycompute(Databases.scala:124)
+	at play.api.db.DefaultDatabase.dataSource(Databases.scala:122)
+	at play.api.db.DefaultDatabase.getConnection(Databases.scala:143)
+	at play.api.db.DefaultDatabase.getConnection(Databases.scala:139)
+	at play.api.db.DefaultDBApi$$anonfun$connect$1.apply(DefaultDBApi.scala:44)
+	at play.api.db.DefaultDBApi$$anonfun$connect$1.apply(DefaultDBApi.scala:42)
+	at scala.collection.immutable.List.foreach(List.scala:381)
+	at play.api.db.DefaultDBApi.connect(DefaultDBApi.scala:42)
+	at play.api.db.DBApiProvider.get$lzycompute(DBModule.scala:72)
+	at play.api.db.DBApiProvider.get(DBModule.scala:62)
+	at play.api.db.DBApiProvider.get(DBModule.scala:58)
+	at com.google.inject.internal.ProviderInternalFactory.provision(ProviderInternalFactory.java:81)
+	at com.google.inject.internal.BoundProviderFactory.provision(BoundProviderFactory.java:72)
+	at com.google.inject.internal.ProviderInternalFactory.circularGet(ProviderInternalFactory.java:61)
+	at com.google.inject.internal.BoundProviderFactory.get(BoundProviderFactory.java:62)
+	at com.google.inject.internal.SingleFieldInjector.inject(SingleFieldInjector.java:54)
+	at com.google.inject.internal.MembersInjectorImpl.injectMembers(MembersInjectorImpl.java:132)
+	at com.google.inject.internal.MembersInjectorImpl$1.call(MembersInjectorImpl.java:93)
+	at com.google.inject.internal.MembersInjectorImpl$1.call(MembersInjectorImpl.java:80)
+	at com.google.inject.internal.InjectorImpl.callInContext(InjectorImpl.java:1103)
+	at com.google.inject.internal.MembersInjectorImpl.injectAndNotify(MembersInjectorImpl.java:80)
+	at com.google.inject.internal.MembersInjectorImpl.injectMembers(MembersInjectorImpl.java:62)
+	at com.google.inject.internal.InjectorImpl.injectMembers(InjectorImpl.java:984)
+	at com.google.inject.util.Providers$GuicifiedProviderWithDependencies.initialize(Providers.java:149)
+	at com.google.inject.util.Providers$GuicifiedProviderWithDependencies$$FastClassByGuice$$2a7177aa.invoke(<generated>)
+	at com.google.inject.internal.cglib.reflect.$FastMethod.invoke(FastMethod.java:53)
+	at com.google.inject.internal.SingleMethodInjector$1.invoke(SingleMethodInjector.java:57)
+	at com.google.inject.internal.SingleMethodInjector.inject(SingleMethodInjector.java:91)
+	at com.google.inject.internal.MembersInjectorImpl.injectMembers(MembersInjectorImpl.java:132)
+	at com.google.inject.internal.MembersInjectorImpl$1.call(MembersInjectorImpl.java:93)
+	at com.google.inject.internal.MembersInjectorImpl$1.call(MembersInjectorImpl.java:80)
+	at com.google.inject.internal.InjectorImpl.callInContext(InjectorImpl.java:1092)
+	at com.google.inject.internal.MembersInjectorImpl.injectAndNotify(MembersInjectorImpl.java:80)
+	at com.google.inject.internal.Initializer$InjectableReference.get(Initializer.java:174)
+	at com.google.inject.internal.Initializer.injectAll(Initializer.java:108)
+	at com.google.inject.internal.InternalInjectorCreator.injectDynamically(InternalInjectorCreator.java:174)
+	at com.google.inject.internal.InternalInjectorCreator.build(InternalInjectorCreator.java:110)
+	at com.google.inject.Guice.createInjector(Guice.java:96)
+	at com.google.inject.Guice.createInjector(Guice.java:73)
+	at com.google.inject.Guice.createInjector(Guice.java:62)
+	at play.api.inject.guice.GuiceBuilder.injector(GuiceInjectorBuilder.scala:126)
+	at play.api.inject.guice.GuiceApplicationBuilder.build(GuiceApplicationBuilder.scala:93)
+	at play.api.inject.guice.GuiceApplicationLoader.load(GuiceApplicationLoader.scala:21)
+	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1$$anonfun$apply$1$$anonfun$1$$anonfun$2.apply(DevServerStart.scala:153)
+	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1$$anonfun$apply$1$$anonfun$1$$anonfun$2.apply(DevServerStart.scala:150)
+	at play.utils.Threads$.withContextClassLoader(Threads.scala:21)
+	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1$$anonfun$apply$1$$anonfun$1.apply(DevServerStart.scala:150)
+	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1$$anonfun$apply$1$$anonfun$1.apply(DevServerStart.scala:121)
+	at scala.Option.map(Option.scala:146)
+	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1$$anonfun$apply$1.apply(DevServerStart.scala:121)
+	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1$$anonfun$apply$1.apply(DevServerStart.scala:119)
+	at scala.util.Success.flatMap(Try.scala:230)
+	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1.apply(DevServerStart.scala:119)
+	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1.apply(DevServerStart.scala:111)
+	at scala.concurrent.impl.Future$PromiseCompletingRunnable.liftedTree1$1(Future.scala:24)
+	at scala.concurrent.impl.Future$PromiseCompletingRunnable.run(Future.scala:24)
+	at java.util.concurrent.ForkJoinTask$RunnableExecuteAction.exec(Unknown Source)
+	at java.util.concurrent.ForkJoinTask.doExec(Unknown Source)
+	at java.util.concurrent.ForkJoinPool$WorkQueue.runTask(Unknown Source)
+	at java.util.concurrent.ForkJoinPool.runWorker(Unknown Source)
+	at java.util.concurrent.ForkJoinWorkerThread.run(Unknown Source)
+Caused by: org.h2.jdbc.JdbcSQLException: General error: "java.lang.IllegalStateException: The file is locked: nio:C:/Users/Ben/Documents/cd-collection/data/cd-collection.mv.db [1.4.187/7]" [50000-187]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	... 95 more
+Caused by: java.lang.IllegalStateException: The file is locked: nio:C:/Users/Ben/Documents/cd-collection/data/cd-collection.mv.db [1.4.187/7]
+	at org.h2.mvstore.DataUtils.newIllegalStateException(DataUtils.java:773)
+	at org.h2.mvstore.FileStore.open(FileStore.java:172)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:337)
+	... 90 more
+08-31 18:06:18 database: flush
+org.h2.message.DbException: General error: "java.lang.IllegalStateException: The file is locked: nio:C:/Users/Ben/Documents/cd-collection/data/cd-collection.mv.db [1.4.187/7]" [50000-187]
+	at org.h2.message.DbException.get(DbException.java:168)
+	at org.h2.message.DbException.convert(DbException.java:295)
+	at org.h2.mvstore.db.MVTableEngine$1.uncaughtException(MVTableEngine.java:93)
+	at org.h2.mvstore.MVStore.panic(MVStore.java:368)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:351)
+	at org.h2.mvstore.MVStore$Builder.open(MVStore.java:2782)
+	at org.h2.mvstore.db.MVTableEngine$Store.<init>(MVTableEngine.java:162)
+	at org.h2.mvstore.db.MVTableEngine.init(MVTableEngine.java:98)
+	at org.h2.engine.Database.getPageStore(Database.java:2389)
+	at org.h2.engine.Database.open(Database.java:669)
+	at org.h2.engine.Database.openDatabase(Database.java:266)
+	at org.h2.engine.Database.<init>(Database.java:260)
+	at org.h2.engine.Engine.openSession(Engine.java:60)
+	at org.h2.engine.Engine.openSession(Engine.java:167)
+	at org.h2.engine.Engine.createSessionAndValidate(Engine.java:145)
+	at org.h2.engine.Engine.createSession(Engine.java:128)
+	at org.h2.engine.Engine.createSession(Engine.java:26)
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:347)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:108)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:92)
+	at org.h2.Driver.connect(Driver.java:72)
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:92)
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:98)
+	at com.zaxxer.hikari.pool.BaseHikariPool.addConnection(BaseHikariPool.java:438)
+	at com.zaxxer.hikari.pool.BaseHikariPool.initializeConnections(BaseHikariPool.java:540)
+	at com.zaxxer.hikari.pool.BaseHikariPool.<init>(BaseHikariPool.java:171)
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:60)
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:48)
+	at com.zaxxer.hikari.HikariDataSource.<init>(HikariDataSource.java:80)
+	at play.api.db.HikariCPConnectionPool$$anonfun$1.apply(HikariCPModule.scala:58)
+	at play.api.db.HikariCPConnectionPool$$anonfun$1.apply(HikariCPModule.scala:54)
+	at scala.util.Try$.apply(Try.scala:191)
+	at play.api.db.HikariCPConnectionPool.create(HikariCPModule.scala:54)
+	at play.api.db.PooledDatabase.createDataSource(Databases.scala:199)
+	at play.api.db.DefaultDatabase.dataSource$lzycompute(Databases.scala:124)
+	at play.api.db.DefaultDatabase.dataSource(Databases.scala:122)
+	at play.api.db.DefaultDatabase.getConnection(Databases.scala:143)
+	at play.api.db.DefaultDatabase.getConnection(Databases.scala:139)
+	at play.api.db.DefaultDBApi$$anonfun$connect$1.apply(DefaultDBApi.scala:44)
+	at play.api.db.DefaultDBApi$$anonfun$connect$1.apply(DefaultDBApi.scala:42)
+	at scala.collection.immutable.List.foreach(List.scala:381)
+	at play.api.db.DefaultDBApi.connect(DefaultDBApi.scala:42)
+	at play.api.db.DBApiProvider.get$lzycompute(DBModule.scala:72)
+	at play.api.db.DBApiProvider.get(DBModule.scala:62)
+	at play.api.db.DBApiProvider.get(DBModule.scala:58)
+	at com.google.inject.internal.ProviderInternalFactory.provision(ProviderInternalFactory.java:81)
+	at com.google.inject.internal.BoundProviderFactory.provision(BoundProviderFactory.java:72)
+	at com.google.inject.internal.ProviderInternalFactory.circularGet(ProviderInternalFactory.java:61)
+	at com.google.inject.internal.BoundProviderFactory.get(BoundProviderFactory.java:62)
+	at com.google.inject.internal.SingleFieldInjector.inject(SingleFieldInjector.java:54)
+	at com.google.inject.internal.MembersInjectorImpl.injectMembers(MembersInjectorImpl.java:132)
+	at com.google.inject.internal.MembersInjectorImpl$1.call(MembersInjectorImpl.java:93)
+	at com.google.inject.internal.MembersInjectorImpl$1.call(MembersInjectorImpl.java:80)
+	at com.google.inject.internal.InjectorImpl.callInContext(InjectorImpl.java:1103)
+	at com.google.inject.internal.MembersInjectorImpl.injectAndNotify(MembersInjectorImpl.java:80)
+	at com.google.inject.internal.MembersInjectorImpl.injectMembers(MembersInjectorImpl.java:62)
+	at com.google.inject.internal.InjectorImpl.injectMembers(InjectorImpl.java:984)
+	at com.google.inject.util.Providers$GuicifiedProviderWithDependencies.initialize(Providers.java:149)
+	at com.google.inject.util.Providers$GuicifiedProviderWithDependencies$$FastClassByGuice$$2a7177aa.invoke(<generated>)
+	at com.google.inject.internal.cglib.reflect.$FastMethod.invoke(FastMethod.java:53)
+	at com.google.inject.internal.SingleMethodInjector$1.invoke(SingleMethodInjector.java:57)
+	at com.google.inject.internal.SingleMethodInjector.inject(SingleMethodInjector.java:91)
+	at com.google.inject.internal.MembersInjectorImpl.injectMembers(MembersInjectorImpl.java:132)
+	at com.google.inject.internal.MembersInjectorImpl$1.call(MembersInjectorImpl.java:93)
+	at com.google.inject.internal.MembersInjectorImpl$1.call(MembersInjectorImpl.java:80)
+	at com.google.inject.internal.InjectorImpl.callInContext(InjectorImpl.java:1092)
+	at com.google.inject.internal.MembersInjectorImpl.injectAndNotify(MembersInjectorImpl.java:80)
+	at com.google.inject.internal.Initializer$InjectableReference.get(Initializer.java:174)
+	at com.google.inject.internal.Initializer.injectAll(Initializer.java:108)
+	at com.google.inject.internal.InternalInjectorCreator.injectDynamically(InternalInjectorCreator.java:174)
+	at com.google.inject.internal.InternalInjectorCreator.build(InternalInjectorCreator.java:110)
+	at com.google.inject.Guice.createInjector(Guice.java:96)
+	at com.google.inject.Guice.createInjector(Guice.java:73)
+	at com.google.inject.Guice.createInjector(Guice.java:62)
+	at play.api.inject.guice.GuiceBuilder.injector(GuiceInjectorBuilder.scala:126)
+	at play.api.inject.guice.GuiceApplicationBuilder.build(GuiceApplicationBuilder.scala:93)
+	at play.api.inject.guice.GuiceApplicationLoader.load(GuiceApplicationLoader.scala:21)
+	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1$$anonfun$apply$1$$anonfun$1$$anonfun$2.apply(DevServerStart.scala:153)
+	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1$$anonfun$apply$1$$anonfun$1$$anonfun$2.apply(DevServerStart.scala:150)
+	at play.utils.Threads$.withContextClassLoader(Threads.scala:21)
+	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1$$anonfun$apply$1$$anonfun$1.apply(DevServerStart.scala:150)
+	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1$$anonfun$apply$1$$anonfun$1.apply(DevServerStart.scala:121)
+	at scala.Option.map(Option.scala:146)
+	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1$$anonfun$apply$1.apply(DevServerStart.scala:121)
+	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1$$anonfun$apply$1.apply(DevServerStart.scala:119)
+	at scala.util.Success.flatMap(Try.scala:230)
+	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1.apply(DevServerStart.scala:119)
+	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1.apply(DevServerStart.scala:111)
+	at scala.concurrent.impl.Future$PromiseCompletingRunnable.liftedTree1$1(Future.scala:24)
+	at scala.concurrent.impl.Future$PromiseCompletingRunnable.run(Future.scala:24)
+	at java.util.concurrent.ForkJoinTask$RunnableExecuteAction.exec(Unknown Source)
+	at java.util.concurrent.ForkJoinTask.doExec(Unknown Source)
+	at java.util.concurrent.ForkJoinPool$WorkQueue.runTask(Unknown Source)
+	at java.util.concurrent.ForkJoinPool.runWorker(Unknown Source)
+	at java.util.concurrent.ForkJoinWorkerThread.run(Unknown Source)
+Caused by: org.h2.jdbc.JdbcSQLException: General error: "java.lang.IllegalStateException: The file is locked: nio:C:/Users/Ben/Documents/cd-collection/data/cd-collection.mv.db [1.4.187/7]" [50000-187]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	... 95 more
+Caused by: java.lang.IllegalStateException: The file is locked: nio:C:/Users/Ben/Documents/cd-collection/data/cd-collection.mv.db [1.4.187/7]
+	at org.h2.mvstore.DataUtils.newIllegalStateException(DataUtils.java:773)
+	at org.h2.mvstore.FileStore.open(FileStore.java:172)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:337)
+	... 90 more
+08-31 18:07:51 database: flush
+org.h2.message.DbException: General error: "java.lang.IllegalStateException: The file is locked: nio:C:/Users/Ben/Documents/cd-collection/data/cd-collection.mv.db [1.4.187/7]" [50000-187]
+	at org.h2.message.DbException.get(DbException.java:168)
+	at org.h2.message.DbException.convert(DbException.java:295)
+	at org.h2.mvstore.db.MVTableEngine$1.uncaughtException(MVTableEngine.java:93)
+	at org.h2.mvstore.MVStore.panic(MVStore.java:368)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:351)
+	at org.h2.mvstore.MVStore$Builder.open(MVStore.java:2782)
+	at org.h2.mvstore.db.MVTableEngine$Store.<init>(MVTableEngine.java:162)
+	at org.h2.mvstore.db.MVTableEngine.init(MVTableEngine.java:98)
+	at org.h2.engine.Database.getPageStore(Database.java:2389)
+	at org.h2.engine.Database.open(Database.java:669)
+	at org.h2.engine.Database.openDatabase(Database.java:266)
+	at org.h2.engine.Database.<init>(Database.java:260)
+	at org.h2.engine.Engine.openSession(Engine.java:60)
+	at org.h2.engine.Engine.openSession(Engine.java:167)
+	at org.h2.engine.Engine.createSessionAndValidate(Engine.java:145)
+	at org.h2.engine.Engine.createSession(Engine.java:128)
+	at org.h2.engine.Engine.createSession(Engine.java:26)
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:347)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:108)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:92)
+	at org.h2.Driver.connect(Driver.java:72)
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:92)
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:98)
+	at com.zaxxer.hikari.pool.BaseHikariPool.addConnection(BaseHikariPool.java:438)
+	at com.zaxxer.hikari.pool.BaseHikariPool.initializeConnections(BaseHikariPool.java:540)
+	at com.zaxxer.hikari.pool.BaseHikariPool.<init>(BaseHikariPool.java:171)
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:60)
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:48)
+	at com.zaxxer.hikari.HikariDataSource.<init>(HikariDataSource.java:80)
+	at play.api.db.HikariCPConnectionPool$$anonfun$1.apply(HikariCPModule.scala:58)
+	at play.api.db.HikariCPConnectionPool$$anonfun$1.apply(HikariCPModule.scala:54)
+	at scala.util.Try$.apply(Try.scala:191)
+	at play.api.db.HikariCPConnectionPool.create(HikariCPModule.scala:54)
+	at play.api.db.PooledDatabase.createDataSource(Databases.scala:199)
+	at play.api.db.DefaultDatabase.dataSource$lzycompute(Databases.scala:124)
+	at play.api.db.DefaultDatabase.dataSource(Databases.scala:122)
+	at play.api.db.DefaultDatabase.getConnection(Databases.scala:143)
+	at play.api.db.DefaultDatabase.getConnection(Databases.scala:139)
+	at play.api.db.DefaultDBApi$$anonfun$connect$1.apply(DefaultDBApi.scala:44)
+	at play.api.db.DefaultDBApi$$anonfun$connect$1.apply(DefaultDBApi.scala:42)
+	at scala.collection.immutable.List.foreach(List.scala:381)
+	at play.api.db.DefaultDBApi.connect(DefaultDBApi.scala:42)
+	at play.api.db.DBApiProvider.get$lzycompute(DBModule.scala:72)
+	at play.api.db.DBApiProvider.get(DBModule.scala:62)
+	at play.api.db.DBApiProvider.get(DBModule.scala:58)
+	at com.google.inject.internal.ProviderInternalFactory.provision(ProviderInternalFactory.java:81)
+	at com.google.inject.internal.BoundProviderFactory.provision(BoundProviderFactory.java:72)
+	at com.google.inject.internal.ProviderInternalFactory.circularGet(ProviderInternalFactory.java:61)
+	at com.google.inject.internal.BoundProviderFactory.get(BoundProviderFactory.java:62)
+	at com.google.inject.internal.SingleFieldInjector.inject(SingleFieldInjector.java:54)
+	at com.google.inject.internal.MembersInjectorImpl.injectMembers(MembersInjectorImpl.java:132)
+	at com.google.inject.internal.MembersInjectorImpl$1.call(MembersInjectorImpl.java:93)
+	at com.google.inject.internal.MembersInjectorImpl$1.call(MembersInjectorImpl.java:80)
+	at com.google.inject.internal.InjectorImpl.callInContext(InjectorImpl.java:1103)
+	at com.google.inject.internal.MembersInjectorImpl.injectAndNotify(MembersInjectorImpl.java:80)
+	at com.google.inject.internal.MembersInjectorImpl.injectMembers(MembersInjectorImpl.java:62)
+	at com.google.inject.internal.InjectorImpl.injectMembers(InjectorImpl.java:984)
+	at com.google.inject.util.Providers$GuicifiedProviderWithDependencies.initialize(Providers.java:149)
+	at com.google.inject.util.Providers$GuicifiedProviderWithDependencies$$FastClassByGuice$$2a7177aa.invoke(<generated>)
+	at com.google.inject.internal.cglib.reflect.$FastMethod.invoke(FastMethod.java:53)
+	at com.google.inject.internal.SingleMethodInjector$1.invoke(SingleMethodInjector.java:57)
+	at com.google.inject.internal.SingleMethodInjector.inject(SingleMethodInjector.java:91)
+	at com.google.inject.internal.MembersInjectorImpl.injectMembers(MembersInjectorImpl.java:132)
+	at com.google.inject.internal.MembersInjectorImpl$1.call(MembersInjectorImpl.java:93)
+	at com.google.inject.internal.MembersInjectorImpl$1.call(MembersInjectorImpl.java:80)
+	at com.google.inject.internal.InjectorImpl.callInContext(InjectorImpl.java:1092)
+	at com.google.inject.internal.MembersInjectorImpl.injectAndNotify(MembersInjectorImpl.java:80)
+	at com.google.inject.internal.Initializer$InjectableReference.get(Initializer.java:174)
+	at com.google.inject.internal.Initializer.injectAll(Initializer.java:108)
+	at com.google.inject.internal.InternalInjectorCreator.injectDynamically(InternalInjectorCreator.java:174)
+	at com.google.inject.internal.InternalInjectorCreator.build(InternalInjectorCreator.java:110)
+	at com.google.inject.Guice.createInjector(Guice.java:96)
+	at com.google.inject.Guice.createInjector(Guice.java:73)
+	at com.google.inject.Guice.createInjector(Guice.java:62)
+	at play.api.inject.guice.GuiceBuilder.injector(GuiceInjectorBuilder.scala:126)
+	at play.api.inject.guice.GuiceApplicationBuilder.build(GuiceApplicationBuilder.scala:93)
+	at play.api.inject.guice.GuiceApplicationLoader.load(GuiceApplicationLoader.scala:21)
+	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1$$anonfun$apply$1$$anonfun$1$$anonfun$2.apply(DevServerStart.scala:153)
+	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1$$anonfun$apply$1$$anonfun$1$$anonfun$2.apply(DevServerStart.scala:150)
+	at play.utils.Threads$.withContextClassLoader(Threads.scala:21)
+	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1$$anonfun$apply$1$$anonfun$1.apply(DevServerStart.scala:150)
+	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1$$anonfun$apply$1$$anonfun$1.apply(DevServerStart.scala:121)
+	at scala.Option.map(Option.scala:146)
+	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1$$anonfun$apply$1.apply(DevServerStart.scala:121)
+	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1$$anonfun$apply$1.apply(DevServerStart.scala:119)
+	at scala.util.Success.flatMap(Try.scala:230)
+	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1.apply(DevServerStart.scala:119)
+	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1.apply(DevServerStart.scala:111)
+	at scala.concurrent.impl.Future$PromiseCompletingRunnable.liftedTree1$1(Future.scala:24)
+	at scala.concurrent.impl.Future$PromiseCompletingRunnable.run(Future.scala:24)
+	at java.util.concurrent.ForkJoinTask$RunnableExecuteAction.exec(Unknown Source)
+	at java.util.concurrent.ForkJoinTask.doExec(Unknown Source)
+	at java.util.concurrent.ForkJoinPool$WorkQueue.runTask(Unknown Source)
+	at java.util.concurrent.ForkJoinPool.runWorker(Unknown Source)
+	at java.util.concurrent.ForkJoinWorkerThread.run(Unknown Source)
+Caused by: org.h2.jdbc.JdbcSQLException: General error: "java.lang.IllegalStateException: The file is locked: nio:C:/Users/Ben/Documents/cd-collection/data/cd-collection.mv.db [1.4.187/7]" [50000-187]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	... 95 more
+Caused by: java.lang.IllegalStateException: The file is locked: nio:C:/Users/Ben/Documents/cd-collection/data/cd-collection.mv.db [1.4.187/7]
+	at org.h2.mvstore.DataUtils.newIllegalStateException(DataUtils.java:773)
+	at org.h2.mvstore.FileStore.open(FileStore.java:172)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:337)
+	... 90 more
+08-31 18:14:51 database: flush
+org.h2.message.DbException: General error: "java.lang.IllegalStateException: The file is locked: nio:C:/Users/Ben/Documents/cd-collection/data/cd-collection.mv.db [1.4.187/7]" [50000-187]
+	at org.h2.message.DbException.get(DbException.java:168)
+	at org.h2.message.DbException.convert(DbException.java:295)
+	at org.h2.mvstore.db.MVTableEngine$1.uncaughtException(MVTableEngine.java:93)
+	at org.h2.mvstore.MVStore.panic(MVStore.java:368)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:351)
+	at org.h2.mvstore.MVStore$Builder.open(MVStore.java:2782)
+	at org.h2.mvstore.db.MVTableEngine$Store.<init>(MVTableEngine.java:162)
+	at org.h2.mvstore.db.MVTableEngine.init(MVTableEngine.java:98)
+	at org.h2.engine.Database.getPageStore(Database.java:2389)
+	at org.h2.engine.Database.open(Database.java:669)
+	at org.h2.engine.Database.openDatabase(Database.java:266)
+	at org.h2.engine.Database.<init>(Database.java:260)
+	at org.h2.engine.Engine.openSession(Engine.java:60)
+	at org.h2.engine.Engine.openSession(Engine.java:167)
+	at org.h2.engine.Engine.createSessionAndValidate(Engine.java:145)
+	at org.h2.engine.Engine.createSession(Engine.java:128)
+	at org.h2.engine.Engine.createSession(Engine.java:26)
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:347)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:108)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:92)
+	at org.h2.Driver.connect(Driver.java:72)
+	at org.h2.server.web.WebServer.getConnection(WebServer.java:750)
+	at org.h2.server.web.WebApp.login(WebApp.java:957)
+	at org.h2.server.web.WebApp.process(WebApp.java:211)
+	at org.h2.server.web.WebApp.processRequest(WebApp.java:170)
+	at org.h2.server.web.WebThread.process(WebThread.java:137)
+	at org.h2.server.web.WebThread.run(WebThread.java:93)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: org.h2.jdbc.JdbcSQLException: General error: "java.lang.IllegalStateException: The file is locked: nio:C:/Users/Ben/Documents/cd-collection/data/cd-collection.mv.db [1.4.187/7]" [50000-187]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	... 28 more
+Caused by: java.lang.IllegalStateException: The file is locked: nio:C:/Users/Ben/Documents/cd-collection/data/cd-collection.mv.db [1.4.187/7]
+	at org.h2.mvstore.DataUtils.newIllegalStateException(DataUtils.java:773)
+	at org.h2.mvstore.FileStore.open(FileStore.java:172)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:337)
+	... 23 more
+11-28 13:08:31 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Attempt to define a second primary key; SQL statement:
+CREATE TABLE artist (
+      
+  artist_id INT NOT NULL GENERATED ALWAYS AS IDENTITY,
+  display_name CHAR(500) NOT NULL UNIQUE,
+  sort_name CHAR(500) NOT NULL,
+  parent_artist INT
+
+  CONSTRAINT artist_0001 PRIMARY KEY(artist_id),     
+  CONSTRAINT artist_0002 CHECK(artist_id > 0),
+  CONSTRAINT artist_0003 CHECK(display_name <> ''),
+  CONSTRAINT artist_0004 CHECK(sort_name <> '')
+  CONSTRAINT artist_0005 CHECK(parent_artist > 0),
+  CONSTRAINT artist_0006 CHECK(parent_artist <> artist_id)
+
+) [90017-187]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.message.DbException.get(DbException.java:144)
+	at org.h2.command.ddl.CreateTable.setPrimaryKeyColumns(CreateTable.java:266)
+	at org.h2.command.ddl.CreateTable.addConstraintCommand(CreateTable.java:84)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:5799)
+	at org.h2.command.Parser.parseCreate(Parser.java:4159)
+	at org.h2.command.Parser.parsePrepared(Parser.java:350)
+	at org.h2.command.Parser.parse(Parser.java:305)
+	at org.h2.command.Parser.parse(Parser.java:277)
+	at org.h2.command.Parser.prepareCommand(Parser.java:242)
+	at org.h2.engine.Session.prepareLocal(Session.java:461)
+	at org.h2.engine.Session.prepareCommand(Session.java:403)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1189)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:170)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:158)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1390)
+	at org.h2.server.web.WebApp.query(WebApp.java:1063)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1025)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1012)
+	at org.h2.server.web.WebThread.process(WebThread.java:168)
+	at org.h2.server.web.WebThread.run(WebThread.java:93)
+	at java.lang.Thread.run(Thread.java:745)
+11-28 13:08:52 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "CREATE TABLE ARTIST (
+      
+  ARTIST_ID INT NOT NULL GENERATED ALWAYS AS IDENTITY,
+  DISPLAY_NAME CHAR(500) NOT NULL UNIQUE,
+  SORT_NAME CHAR(500) NOT NULL,
+  PARENT_ARTIST INT,
+
+  CONSTRAINT ARTIST_0001 PRIMARY KEY(ARTIST_ID),     
+  CONSTRAINT ARTIST_0002 CHECK(ARTIST_ID > 0),
+  CONSTRAINT ARTIST_0003 CHECK(DISPLAY_NAME <> ''),
+  CONSTRAINT ARTIST_0004 CHECK(SORT_NAME <> '')
+  CONSTRAINT[*] ARTIST_0005 CHECK(PARENT_ARTIST > 0),
+  CONSTRAINT ARTIST_0006 CHECK(PARENT_ARTIST <> ARTIST_ID)
+
+) "; expected "[, ::, *, /, %, +, -, ||, ~, !~, NOT, LIKE, REGEXP, IS, IN, BETWEEN, AND, OR, NOCHECK, CHECK, ,, )"; SQL statement:
+CREATE TABLE artist (
+      
+  artist_id INT NOT NULL GENERATED ALWAYS AS IDENTITY,
+  display_name CHAR(500) NOT NULL UNIQUE,
+  sort_name CHAR(500) NOT NULL,
+  parent_artist INT,
+
+  CONSTRAINT artist_0001 PRIMARY KEY(artist_id),     
+  CONSTRAINT artist_0002 CHECK(artist_id > 0),
+  CONSTRAINT artist_0003 CHECK(display_name <> ''),
+  CONSTRAINT artist_0004 CHECK(sort_name <> '')
+  CONSTRAINT artist_0005 CHECK(parent_artist > 0),
+  CONSTRAINT artist_0006 CHECK(parent_artist <> artist_id)
+
+) [42001-187]
+2015-11-28 13:25:05 database: flush
+org.h2.message.DbException: General error: "java.lang.IllegalStateException: The file is locked: nio:C:/Users/Ben/Documents/cd-collection/data/cd-collection.mv.db [1.4.190/7]" [50000-190]
+	at org.h2.message.DbException.get(DbException.java:168)
+	at org.h2.message.DbException.convert(DbException.java:295)
+	at org.h2.mvstore.db.MVTableEngine$1.uncaughtException(MVTableEngine.java:94)
+	at org.h2.mvstore.MVStore.panic(MVStore.java:373)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:356)
+	at org.h2.mvstore.MVStore$Builder.open(MVStore.java:2888)
+	at org.h2.mvstore.db.MVTableEngine$Store.open(MVTableEngine.java:154)
+	at org.h2.mvstore.db.MVTableEngine.init(MVTableEngine.java:99)
+	at org.h2.engine.Database.getPageStore(Database.java:2450)
+	at org.h2.engine.Database.open(Database.java:672)
+	at org.h2.engine.Database.openDatabase(Database.java:269)
+	at org.h2.engine.Database.<init>(Database.java:263)
+	at org.h2.engine.Engine.openSession(Engine.java:65)
+	at org.h2.engine.Engine.openSession(Engine.java:175)
+	at org.h2.engine.Engine.createSessionAndValidate(Engine.java:153)
+	at org.h2.engine.Engine.createSession(Engine.java:136)
+	at org.h2.engine.Engine.createSession(Engine.java:28)
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:349)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:107)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:91)
+	at org.h2.Driver.connect(Driver.java:72)
+	at org.h2.jdbcx.JdbcDataSource.getJdbcConnection(JdbcDataSource.java:190)
+	at org.h2.jdbcx.JdbcDataSource.getConnection(JdbcDataSource.java:161)
+	at sqlest.executor.Database$$anon$1.getConnection(Database.scala:30)
+	at sqlest.executor.Session.withConnection(Database.scala:67)
+	at sqlest.executor.Session.executeSelect(Database.scala:78)
+	at sqlest.executor.ExecutorSyntax$SelectExecutorOps.extractAll(Executor.scala:42)
+	at dal.ArtistDal$class.getArtists(ArtistDal.scala:21)
+	at service.ArtistService$$anon$1.getArtists(ArtistService.scala:8)
+	at service.ArtistService.getArtists(ArtistService.scala:11)
+	at server.CdCollectionServer$$anonfun$3.apply(CdCollectionServer.scala:51)
+	at server.CdCollectionServer$$anonfun$3.apply(CdCollectionServer.scala:49)
+	at scala.Function1$$anonfun$compose$1.apply(Function1.scala:44)
+	at org.vertx.scala.core.FunctionConverters$$anon$4.handle(FunctionConverters.scala:39)
+	at org.vertx.java.core.http.RouteMatcher.route(RouteMatcher.java:362)
+	at org.vertx.java.core.http.RouteMatcher.handle(RouteMatcher.java:64)
+	at org.vertx.scala.core.http.RouteMatcher.handle(RouteMatcher.scala:61)
+	at org.vertx.scala.core.http.RouteMatcher.apply(RouteMatcher.scala:41)
+	at org.vertx.scala.core.http.RouteMatcher.apply(RouteMatcher.scala:31)
+	at scala.Function1$$anonfun$compose$1.apply(Function1.scala:44)
+	at org.vertx.scala.core.FunctionConverters$$anon$4.handle(FunctionConverters.scala:39)
+	at org.vertx.java.core.http.impl.ServerConnection.handleRequest(ServerConnection.java:190)
+	at org.vertx.java.core.http.impl.ServerConnection.processMessage(ServerConnection.java:301)
+	at org.vertx.java.core.http.impl.ServerConnection.handleMessage(ServerConnection.java:94)
+	at org.vertx.java.core.http.impl.DefaultHttpServer$ServerHandler.doMessageReceived(DefaultHttpServer.java:672)
+	at org.vertx.java.core.http.impl.DefaultHttpServer$ServerHandler.doMessageReceived(DefaultHttpServer.java:600)
+	at org.vertx.java.core.http.impl.VertxHttpHandler.channelRead(VertxHttpHandler.java:72)
+	at org.vertx.java.core.net.impl.VertxHandler.channelRead(VertxHandler.java:155)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:333)
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:319)
+	at io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:163)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:333)
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:319)
+	at io.netty.channel.DefaultChannelPipeline.fireChannelRead(DefaultChannelPipeline.java:787)
+	at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:125)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:511)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:468)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:382)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:354)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$2.run(SingleThreadEventExecutor.java:116)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.h2.jdbc.JdbcSQLException: General error: "java.lang.IllegalStateException: The file is locked: nio:C:/Users/Ben/Documents/cd-collection/data/cd-collection.mv.db [1.4.190/7]" [50000-190]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	... 61 more
+Caused by: java.lang.IllegalStateException: The file is locked: nio:C:/Users/Ben/Documents/cd-collection/data/cd-collection.mv.db [1.4.190/7]
+	at org.h2.mvstore.DataUtils.newIllegalStateException(DataUtils.java:773)
+	at org.h2.mvstore.FileStore.open(FileStore.java:172)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:342)
+	... 56 more
