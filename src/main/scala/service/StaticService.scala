@@ -13,14 +13,35 @@ object StaticService extends LazyLogging {
 
   val staticService = HttpService {
 
+    // Generic resources
     case req @ GET -> "public" /: path =>
       logger.info(s"Received static request $path")
       val resourcePath = "/public" + path.toString
-      logger.info(resourcePath)
-      val x = StaticFile.fromResource(resourcePath, Some(req))
-      logger.info(x.toString)
-      x.map(Task.now)
+      StaticFile.fromResource(resourcePath, Some(req))
+        .map(Task.now)
         .getOrElse(NotFound())
+
+    // Nicer URIs for the pages
+    case req @ GET -> Root =>
+      logger.info("Received page request for index page")
+      val resourcePath = "/public/html/index.html"
+      StaticFile.fromResource(resourcePath, Some(req))
+        .map(Task.now)
+        .getOrElse(NotFound())  
+
+    case req @ GET -> Root / "artists" =>
+      logger.info("Received page request for artist page")
+      val resourcePath = "/public/html/artists.html"
+      StaticFile.fromResource(resourcePath, Some(req))
+        .map(Task.now)
+        .getOrElse(NotFound())
+ 
+     case req @ GET -> Root / "albums" =>
+      logger.info("Received page request for album page")
+      val resourcePath = "/public/html/albums.html"
+      StaticFile.fromResource(resourcePath, Some(req))
+        .map(Task.now)
+        .getOrElse(NotFound())     
 
   }
 

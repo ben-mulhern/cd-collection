@@ -16,7 +16,8 @@ libraryDependencies ++= Seq(
   "ch.qos.logback" % "logback-classic" % "1.1.3",
   "org.scala-js" %%% "scalajs-dom" % "0.9.0",
   "org.http4s" %% "http4s-dsl" % "0.12.3",
-  "org.http4s" %% "http4s-blaze-server" % "0.12.3"
+  "org.http4s" %% "http4s-blaze-server" % "0.12.3",
+  "org.webjars" % "angularjs" % "1.5.3"
 )
 
 resolvers += "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases"
