@@ -1,5 +1,5 @@
 <!doctype html>
-<html ng-app="artistApp">
+<html lang="en" ng-app="artistApp">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -43,75 +43,82 @@
       <header>
         <h1>Artists</h1>
       </header>
-    
-      <article ng-controller="ArtistController as artistList">
+    </section>
 
+    <article ng-controller="ArtistController as artistList">
+
+      <section>  
         <div class="row">
           <!-- Button trigger modal -->
           <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addArtistWindow">
             Add new artist
           </button>
         </div>
-        
-        <div class="row">  
+      </section>  
 
-          <!-- Modal -->
-          <div class="modal fade" id="addArtistWindow" tabindex="-1" role="dialog" aria-labelledby="addArtistWindow">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                  <h4 class="modal-title" id="addArtistWindow">Add artist</h4>
+      <div class="row">  
+        <!-- Modal -->
+        <div class="modal fade" id="addArtistWindow" tabindex="-1" role="dialog" aria-labelledby="addArtistWindow">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="addArtistWindow">Add artist</h4>
+              </div>
+
+              
+              <form ng-submit="artistList.createArtist()">
+                <div class="modal-body">
+                  Artist name: <input type = "text" ng-model="artistList.formArtistName" /> <br />
+                  Sort name: <input type = "text" name="sortname" ng-model="artistList.formSortName" /> <br />
+                  <!-- <input type = "text" name="parentartistId" ng-model="parentArtistId" /> -->
+                </div>  
+
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                  <button type="submit" class="btn btn-primary">Add new artist</button>
                 </div>
+              </form>
 
-                
-                <form ng-submit="artistList.createArtist()">
-                  <div class="modal-body">
-                    Artist name: <input type = "text" name="artistname" ng-model="artistList.formArtistName" /> <br />
-                    Sort name: <input type = "text" name="sortname" ng-model="artistList.formSortName" /> <br />
-                    <!-- <input type = "text" name="parentartistId" ng-model="parentArtistId" /> -->
-                  </div>  
-
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Add new artist</button>
-                  </div>
-                </form>
-
-              </div>  
             </div>  
-          </div>
+          </div>  
         </div>
-
-        <span ng-show="artistList.dataError" style="color:red">Error retrieving Artist list.</span>
+      </div>
       
+      <section>
+        <div class="row">
+          <p>Search artists:
+          <input type="Text" name="artistsearch" ng-model="artistList.artistSearchTerm" />
+          </p>
+        </div>
+      </section>
+      
+      <section>  
+        <span ng-show="artistList.dataError" style="color:red">Error retrieving Artist list.</span>
+
          <div class="row">
            <div class="col-md-6">
              <table class="table table-bordered" data-ref="artistList">
                <tr>
                  <th>Artist</th>
                  <th>Parent artist</th>
-                 <th></th>
-                 <th></th>
-                 <th></th>
-                 <th></th>
                </tr>  
 
-               <tr ng-repeat="artist in artistList.artists">
+               <tr ng-repeat="artist in artistList.artists | filter:artistList.artistSearchTerm">
                  <td>{{artist.displayName}}</td>
                  <td>{{artist.parent.displayName}}</td>
-                 <td><a href ="#" data-toggle="modal" data-target="#editPersonWindow">Edit</a></td>
-                 <td><a href="#">Delete</a></td>
-                 <td><a href="#">Albums</a></td>
-                 <td><a href="#">Add album</a></td>
+                 <td><a href ="#" data-toggle="modal" data-target="#editPersonWindow">Edit</a> |
+                 <a href="#">Delete</a> |
+                 <a href="#">Show albums</a> |
+                 <a href="#">Add album</a></td>
                </tr>  
 
             </table>
           </div>
         </div>
-      
-      </article>
-    </section>
+      </section>
+    </article>
+    
   </div>
   
   <script src="/public/javascripts/bower_components/angular/angular.js"></script>

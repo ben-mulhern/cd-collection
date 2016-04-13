@@ -8,9 +8,9 @@ Basic web app to learn some Angular, ScalaJS and Http4s. Uses Scala, Sqlest and 
 
 3) Figure out how all the Angular dependencies work - do I need to check them into my repo or can I get SBT to handle it?
 
-4) Handle window forms better (well, at all)
+4) Handle window forms better (well, at all) - validation errors, closing when complete
 
-5) Add artist search function
+5) Styling - borders around the "add artist" button
 
 6) Add validation for artists to only allow one level of parenthood
 
