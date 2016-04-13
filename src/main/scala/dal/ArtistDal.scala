@@ -49,20 +49,31 @@ trait ArtistDal extends SqlestDb {
 
       ActionSuccess(artist.copy(id = Some(newArtistId.getOrElse(0)))) 
 
-    }
-
-      
+    }  
 
   }
 
-  /*def updateArtist(artist: Artist): Int = {
+  def updateArtist(artist: Artist) = {
 
-    update(ArtistTable)
-      .set(ArtistTable.displayName -> person.emailAddress)
-      .where(PersonTable.personCode === person.code)
-      .execute
+    database.withTransaction { implicit transaction =>
 
-  }*/
+      update(ArtistTable)
+        .set(ArtistTable.displayName -> artist.displayName)
+        .where(ArtistTable.id === artist.id.get)
+        .execute
+    }
+  }
+
+  def deleteArtist(artist: Artist) = {
+
+    database.withTransaction { implicit transaction =>
+
+      delete
+        .from(ArtistTable)
+        .where(ArtistTable.id === artist.id.get)
+        .execute
+    }
+  }
 
 }
 

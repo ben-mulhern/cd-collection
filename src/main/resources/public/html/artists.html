@@ -1,4 +1,4 @@
-<!doctype html>
+ <!doctype html>
 <html lang="en" ng-app="artistApp">
 <head>
   <meta charset="utf-8">
@@ -38,23 +38,12 @@
 
 
   <div class="container theme-showcase" role="main">
-
-    <section>
-      <header>
-        <h1>Artists</h1>
-      </header>
-    </section>
+    
+    <header>
+      <h1>Artists</h1>
+    </header>
 
     <article ng-controller="ArtistController as artistList">
-
-      <section>  
-        <div class="row">
-          <!-- Button trigger modal -->
-          <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addArtistWindow">
-            Add new artist
-          </button>
-        </div>
-      </section>  
 
       <div class="row">  
         <!-- Modal -->
@@ -87,6 +76,11 @@
       
       <section>
         <div class="row">
+          <p>
+            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addArtistWindow">
+              Add new artist
+            </button>
+          </p>
           <p>Search artists:
           <input type="Text" name="artistsearch" ng-model="artistList.artistSearchTerm" />
           </p>
