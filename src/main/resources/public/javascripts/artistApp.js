@@ -19,8 +19,25 @@ myApp.controller('ArtistController', ['$log', 'ArtistService', function($log, Ar
     });
 
     self.createArtist = function() {
-      ArtistService.createArtist(self.formArtistName, self.formSortName);
-      console.log("This was passed into controller: " + self.formArtistName + ", " + self.formSortName)
+      ArtistService.createArtist(self.formArtistName, self.formSortName)
+        .success(function(response) {
+          self.artists.push(response.value);
+          var x = self.artists.sort(function(a, b) {
+            if (a.sortName < b.sortName)
+              return -1;
+            if (a.sortName > b.sortName)
+              return 1;
+            else
+              return 0;
+            });
+          self.artists = x;
+          $('#addArtistWindow').modal('hide');
+          console.log(x);
+        })
+        .error(function() {
+          $log.debug("Post went wrong!");
+        }
+      );
     };
 
 }]);
@@ -30,15 +47,12 @@ myApp.service('ArtistService', ['$http', function($http){
   var self = this;
 
   self.getArtists = function() {
-    return $http.get('/artist/')
+    return $http.get('/artist/');
   };
 
   self.createArtist = function(displayName, sortName) {
-    var data = {displayName: displayName, sortName: sortName}
-    $http.post('/artist/create', data)
-      .success(function(response) {
-        console.log(response);
-       });
+    var data = {displayName: displayName, sortName: sortName};
+    return $http.post('/artist/create', data);
   };
 
 }]);
