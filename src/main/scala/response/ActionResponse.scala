@@ -13,3 +13,7 @@ case class ActionFailure[A](errors: Seq[ActionError]) extends ActionResponse[A] 
 }
 
 case class ActionError(message: String)
+
+object Response {
+	def fail[A](message: String): ActionFailure[A] = ActionFailure[A](List(ActionError(message)))
+}
