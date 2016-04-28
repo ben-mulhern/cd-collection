@@ -32,6 +32,8 @@ myApp.controller('ArtistController', ['$log', 'ArtistService', function($log, Ar
             });
           self.artists = x;
           $('#addArtistWindow').modal('hide');
+          self.formArtistName = "";
+          self.formSortName = "";
           console.log(x);
         })
         .error(function() {
