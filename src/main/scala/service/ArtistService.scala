@@ -39,6 +39,16 @@ object ArtistService extends LazyLogging {
         Ok(jsonResult)  
       }
 
+    case req @ PUT -> Root / "artist" / "update" =>
+      req.decode[String] { data =>
+        logger.info("Received artist update request for this: " + data)
+        val a: Artist = read[Artist](data)
+        val result = artistDal.updateArtist(a)
+        val jsonResult = write(result)
+        logger.info(jsonResult)
+        Ok(jsonResult)  
+      }    
+
   }
 
 }

@@ -2,24 +2,29 @@
 Basic web app to learn some Angular, ScalaJS and Http4s. Uses Scala, Sqlest and H2 db for backend.
 
 #To-do
-1) Re-write JS with ScalaJS	
+- Re-write JS with ScalaJS (and re-factor!)
 
-2) Finish the other pages & services (albums)
+- Album page
 
-3) Figure out how all the Angular dependencies work - do I need to check them into my repo or can I get SBT to handle it?
+- Generator page
 
-4) Handle window forms better (well, at all) - validation errors, closing when complete
+- Figure out how all the Angular dependencies work - do I need to check them into my repo or can I get SBT to handle it?
 
-5) Add validation for artists to only allow one level of parenthood
+- Handle service errors in the UI
 
-6) Get serialisation working for responses
+- Formatting of the edit/add windows (clearable, mandatory, sizing)
 
-7) Get responses properly implemented in create method
+- Table column widths - keep them fixed width somehow?
+
+- Add all the parent artist logic and functionality inc domain validation for artists to only allow one level of parenthood
+
+- Artist delete
+
+- Ship master copy with empty DB
 
 #To run
-Currently you have to manually create the tables in the H2 db (see SQL source for details)
 
-To run from SBT:
+From SBT:
 
 ~re-start 
 

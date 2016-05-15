@@ -47,25 +47,25 @@
 
       <div class="row">  
         <!-- Modal -->
-        <div class="modal fade" id="addArtistWindow" tabindex="-1" role="dialog" aria-labelledby="addArtistWindow">
+        <div class="modal fade" id="manageArtistWindow" tabindex="-1" role="dialog" aria-labelledby="addArtistWindow">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="addArtistWindow">Add artist</h4>
+                <h4 class="modal-title" id="manageArtistWindow">{{artistList.manageWindowTitle}}</h4>
               </div>
 
               
-              <form ng-submit="artistList.createArtist()">
+              <form ng-submit="artistList.setArtist()">
                 <div class="modal-body">
-                  Artist name: <input type = "text" ng-model="artistList.formArtistName" /> <br />
-                  Sort name: <input type = "text" name="sortname" ng-model="artistList.formSortName" /> <br />
+                  Artist name: <input type="text" ng-model="artistList.formArtistName" /> <br />
+                  Sort name: <input type="text" name="sortname" ng-model="artistList.formSortName" /> <br />
                   <!-- <input type = "text" name="parentartistId" ng-model="parentArtistId" /> -->
                 </div>  
 
                 <div class="modal-footer">
                   <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                  <button type="submit" class="btn btn-primary">Add new artist</button>
+                  <button type="submit" class="btn btn-primary">{{artistList.manageWindowAction}}</button>
                 </div>
               </form>
 
@@ -73,11 +73,52 @@
           </div>  
         </div>
       </div>
+
+      <!-- Generic notification window -->
+      <div class="modal fade" id="genericNotificationWindow" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <h4 class="modal-title">{{artistList.genericNotificationTitle}}</h4>
+            </div>
+            <div class="modal-body">
+              <p>{{artistList.genericNotificationMessage}}</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Generic choice window --> 
+      <div class="modal fade" id="genericChoiceWindow" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <h4 class="modal-title">{{artistList.genericWindowTitle}}</h4>
+            </div>
+            <div class="modal-body">
+              <p>{{artistList.genericWindowMessage}}</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+              <button type="submit" class="btn btn-secondary" data-dismiss="modal">{{artistList.genericWindowAction}}</button>
+            </div>
+          </div>
+        </div>
+      </div>      
       
       <section>
         <div class="row">
           <p>
-            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addArtistWindow">
+            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" ng-click="artistList.manageArtist(true, null)">
               Add new artist
             </button>
           </p>
@@ -88,7 +129,7 @@
       </section>
       
       <section>  
-        <span ng-show="artistList.dataError" style="color:red">Error retrieving Artist list.</span>
+        <span ng-show="artistList.dataError" style="color:red">Waiting for artist data.</span>
 
          <div class="row">
            <div class="col-md-6">
@@ -96,13 +137,13 @@
                <tr>
                  <th>Artist</th>
                  <th>Parent artist</th>
-                 <th></th>
+                 <th>Actions</th>
                </tr>  
 
                <tr ng-repeat="artist in artistList.artists | filter:artistList.artistSearchTerm">
                  <td>{{artist.displayName}}</td>
                  <td>{{artist.parent.displayName}}</td>
-                 <td><a href ="#" data-toggle="modal" data-target="#editPersonWindow">Edit</a> |
+                 <td><a href ="#" data-toggle="modal" ng-click="artistList.manageArtist(false, artist)">Update</a> |
                  <a href="#">Delete</a> |
                  <a href="#">Show albums</a> |
                  <a href="#">Add album</a></td>

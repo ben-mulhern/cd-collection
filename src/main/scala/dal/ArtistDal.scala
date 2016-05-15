@@ -66,7 +66,8 @@ trait ArtistDal extends SqlestDb {
 
       val updateStatement = 
         update(ArtistTable)
-          .set(ArtistTable.displayName -> artist.displayName)
+          .set(ArtistTable.displayName -> artist.displayName,
+               ArtistTable.sortName -> artist.sortName)
           .where(ArtistTable.id === artist.id.get)
           .execute
 
