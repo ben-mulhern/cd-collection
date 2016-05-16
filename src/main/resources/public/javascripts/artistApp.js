@@ -71,9 +71,11 @@ myApp.controller('ArtistController', ['$log', 'ArtistService', function($log, Ar
 
     self.sortArtistList = function(artistList) {
       return artistList.sort(function(a, b) {
-        if (a.sortName < b.sortName)
+        var aCaps = a.sortName.toUpperCase();
+        var bCaps = b.sortName.toUpperCase();
+        if (aCaps < bCaps)
           return -1;
-        if (a.sortName > b.sortName)
+        if (aCaps > bCaps)
           return 1;
         else
           return 0;
@@ -94,6 +96,19 @@ myApp.controller('ArtistController', ['$log', 'ArtistService', function($log, Ar
       self.genericNotificationMessage = message;
       $('#genericNotificationWindow').modal('show');
     };
+
+    self.deleteArtist = function(artist) {
+      self.showGenericChoice("Delete artist", 
+                             "Are you sure you want to delete artist " + artist.displayName + "?",
+                             "Delete");
+    }
+
+    self.showGenericChoice = function(title, message, action) {
+      self.genericWindowTitle = title;
+      self.genericWindowMessage = message;
+      self.genericWindowAction = action;
+      $('#genericChoiceWindow').modal('show');
+    }
 
     self.manageArtist = function(createMode, artist) {
       self.manageWindowMode = createMode;
