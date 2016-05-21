@@ -85,10 +85,11 @@ myApp.controller('ArtistController', ['$log', 'ArtistService', function($log, Ar
     self.setArtist = function() {
       if (self.manageWindowMode)
         self.createArtist();
-      else
+      else {
         self.artistModel.displayName = self.formArtistName;
         self.artistModel.sortName = self.formSortName;
         self.updateArtist();
+      };
     }
 
     self.showGenericNotification = function(title, message) {
