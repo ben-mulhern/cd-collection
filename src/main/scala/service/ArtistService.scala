@@ -21,15 +21,21 @@ object ArtistService extends LazyLogging {
 
   val artist = HttpService {
 
-    case GET -> Root / "artist" / searchTerm =>
+    case GET -> Root / "artists" / searchTerm =>
       logger.info(s"Received request artist / $searchTerm")
       val artistList: List[Artist] = artistDal.getArtists(searchTerm)
       val artistJson = write(artistList)
       Ok(artistJson).withContentType(Some(`Content-Type`(`application/json`)))
         .putHeaders(Header("Access-Control-Allow-Origin", "*"))
 
+    case GET -> Root / "artists" =>
+      logger.info(s"Received request for all artists")
+      val artistList: List[Artist] = artistDal.getArtists()
+      val artistJson = write(artistList)
+      Ok(artistJson).withContentType(Some(`Content-Type`(`application/json`)))
+        .putHeaders(Header("Access-Control-Allow-Origin", "*"))
 
-    case req @ POST -> Root / "artist" / "create" =>
+    case req @ POST -> Root / "artists" =>
       req.decode[String] { data =>
         logger.info("Received artist create request for this: " + data)
         val a: Artist = read[Artist](data)
@@ -39,7 +45,7 @@ object ArtistService extends LazyLogging {
         Ok(jsonResult)  
       }
 
-    case req @ PUT -> Root / "artist" / "update" =>
+    case req @ PUT -> Root / "artists" =>
       req.decode[String] { data =>
         logger.info("Received artist update request for this: " + data)
         val a: Artist = read[Artist](data)

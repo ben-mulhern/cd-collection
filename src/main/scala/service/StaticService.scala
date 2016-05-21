@@ -29,14 +29,14 @@ object StaticService extends LazyLogging {
         .map(Task.now)
         .getOrElse(NotFound())  
 
-    case req @ GET -> Root / "artists" =>
+    case req @ GET -> Root / "pages" / "artists" =>
       logger.info("Received page request for artist page")
       val resourcePath = "/public/html/artists.html"
       StaticFile.fromResource(resourcePath, Some(req))
         .map(Task.now)
         .getOrElse(NotFound())
  
-     case req @ GET -> Root / "albums" =>
+     case req @ GET -> Root / "pages" / "albums" =>
       logger.info("Received page request for album page")
       val resourcePath = "/public/html/albums.html"
       StaticFile.fromResource(resourcePath, Some(req))

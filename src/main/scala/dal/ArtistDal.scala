@@ -8,7 +8,7 @@ import response._
 
 trait ArtistDal extends SqlestDb {
 
-  def getArtists(searchTerm: String): List[Artist] = {
+  def getArtists(searchTerm: String = ""): List[Artist] = {
 
     val wildCardSearch = ("%" + searchTerm + "%").toUpperCase
 

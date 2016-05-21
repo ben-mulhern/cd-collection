@@ -22,7 +22,7 @@ Basic web app to learn some Angular, ScalaJS and Http4s. Uses Scala, Sqlest and 
 
 - Ship master copy with empty DB
 
-- Make URIs more RESTful
+- Make URI for searching artists more RESTful
 
 #To run
 
