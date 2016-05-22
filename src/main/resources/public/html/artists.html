@@ -108,8 +108,10 @@
               <p>{{artistList.genericWindowMessage}}</p>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-              <button type="submit" class="btn btn-secondary" data-dismiss="modal">{{artistList.genericWindowAction}}</button>
+              <form ng-submit="artistList.genericWindowFunction()">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-primary">{{artistList.genericWindowAction}}</button>
+              </form>  
             </div>
           </div>
         </div>
@@ -143,10 +145,10 @@
                <tr ng-repeat="artist in artistList.artists | filter:artistList.artistSearchTerm">
                  <td>{{artist.displayName}}</td>
                  <td>{{artist.parent.displayName}}</td>
-                 <td><a href ="#" data-toggle="modal" ng-click="artistList.manageArtist(false, artist)">Update</a> |
-                 <a href="#" data-toggle="modal" ng-click="artistList.deleteArtist(artist)">Delete</a> |
-                 <a href="#">Show albums</a> |
-                 <a href="#">Add album</a></td>
+                 <td><a href ="" data-toggle="modal" ng-click="artistList.manageArtist(false, artist)">Update</a> |
+                 <a href="" data-toggle="modal" ng-click="artistList.deleteArtist(artist)">Delete</a> |
+                 <a href="">Show albums</a> |
+                 <a href="">Add album</a></td>
                </tr>  
 
             </table>

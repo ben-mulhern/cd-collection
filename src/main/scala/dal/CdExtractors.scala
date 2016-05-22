@@ -21,4 +21,20 @@ object CdExtractors {
     parent = extractConstant(None)
   ) 
 
+  lazy val albumExtractor = extract[Album](
+    id = AlbumTable.id.asOption,
+    name = AlbumTable.name,
+    artist = artistExtractor,
+    releaseYear = AlbumTable.releaseYear,
+    albumType = albumTypeExtractor,
+    lastPlayed = AlbumTable.lastPlayed,
+    purchased = AlbumTable.purchased,
+    sides = AlbumSideTable.sideName.asList
+  )
+
+  lazy val albumTypeExtractor = extract[AlbumType](
+    code = AlbumTypeTable.albumType,
+    description = AlbumTypeTable.description
+  )
+
 }

@@ -13,6 +13,7 @@ myApp.controller('ArtistController', ['$log', 'ArtistService', function($log, Ar
   self.genericWindowTitle;
   self.genericWindowMessage;
   self.genericWindowAction;
+  self.genericWindowFunction;
   self.genericNotificationTitle;
   self.genericNotificationMessage;
   self.manageWindowTitle;
@@ -101,13 +102,29 @@ myApp.controller('ArtistController', ['$log', 'ArtistService', function($log, Ar
     self.deleteArtist = function(artist) {
       self.showGenericChoice("Delete artist", 
                              "Are you sure you want to delete artist " + artist.displayName + "?",
-                             "Delete");
+                             "Delete", function(){self.executeArtistDelete(artist)});
     }
 
-    self.showGenericChoice = function(title, message, action) {
+    self.executeArtistDelete = function(artist) {
+      ArtistService.deleteArtist(artist)
+        .success(function(response) {
+          var checkDelete = function(a) { return a.id == artist.id };
+          var x = self.artists.findIndex(checkDelete);
+          self.artists.splice(x, 1);
+          $('#genericChoiceWindow').modal('hide');
+          self.showGenericNotification("Artist deleted", "Artist " + artist.displayName + " was deleted successfully.");
+        })
+        .error(function() {
+          $log.debug("Delete Post went wrong!");
+        }
+      );      
+    };
+
+    self.showGenericChoice = function(title, message, action, submitFunction) {
       self.genericWindowTitle = title;
       self.genericWindowMessage = message;
       self.genericWindowAction = action;
+      self.genericWindowFunction = submitFunction;
       $('#genericChoiceWindow').modal('show');
     }
 
@@ -154,7 +171,7 @@ myApp.service('ArtistService', ['$http', function($http){
   self.deleteArtist = function(artist) {
     var url = "/artists/" + artist.id;
     console.log("DELETING artist - DELETE " + url);
-    return $http.put(url);
+    return $http.delete(url);
   };
 
 }]);
