@@ -19,7 +19,7 @@ trait ArtistDal extends SqlestDb {
       .leftJoin(SecondArtistTable)
         .on(ArtistLinkTable.parentArtist === SecondArtistTable.id)
       .where(upper(ArtistTable.displayName) like wildCardSearch) 
-      .orderBy(ArtistTable.sortName)
+      .orderBy(upper(ArtistTable.sortName))
       .extractAll(artistExtractor)
    
   }
@@ -77,17 +77,17 @@ trait ArtistDal extends SqlestDb {
     }
   }
 
-  def deleteArtist(artist: Artist): ActionResponse[Artist] = {
+  def deleteArtist(artistId: Int): ActionResponse[Int] = {
 
     database.withTransaction { implicit transaction =>
 
       val deleteStatement = 
         delete
           .from(ArtistTable)
-          .where(ArtistTable.id === artist.id.get)
+          .where(ArtistTable.id === artistId)
           .execute
 
-      if (deleteStatement == 1) ActionSuccess(artist)
+      if (deleteStatement == 1) ActionSuccess(artistId)
       else Response.fail("Failed to delete artist")      
     }
   }

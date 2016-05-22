@@ -135,17 +135,26 @@ myApp.service('ArtistService', ['$http', function($http){
   var self = this;
 
   self.getArtists = function() {
+    console.log("Requesting list of all artists - GET /artists");
     return $http.get('/artists');
   };
 
   self.createArtist = function(displayName, sortName) {
     var data = {displayName: displayName, sortName: sortName};
+    console.log("Creating artist - POST /artists, with body " + data);
     return $http.post('/artists', data);
   };
 
   self.updateArtist = function(artist) {
-    console.log("Artist sort name is " + artist.sortName);
-    return $http.put('/artists', artist);
+    var url = "/artists/" + artist.id;
+    console.log("Updating artist - PUT " + url + ", with body " + artist);
+    return $http.put(url, artist);
+  };
+
+  self.deleteArtist = function(artist) {
+    var url = "/artists/" + artist.id;
+    console.log("DELETING artist - DELETE " + url);
+    return $http.put(url);
   };
 
 }]);

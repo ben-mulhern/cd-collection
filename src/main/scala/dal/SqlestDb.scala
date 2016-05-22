@@ -18,4 +18,7 @@ trait SqlestDb {
 
   implicit val database = Database.withDataSource(dataSource, statementBuilder)
 
+  // Useful SQL BIFs
+  val upper = ScalarFunction1[String, String]("upper")
+
 }

@@ -45,15 +45,25 @@ object ArtistService extends LazyLogging {
         Ok(jsonResult)  
       }
 
-    case req @ PUT -> Root / "artists" =>
+    case req @ PUT -> Root / "artists" / artistId =>
       req.decode[String] { data =>
         logger.info("Received artist update request for this: " + data)
+        // TODO - some validation to make sure artistId from URI matches that from the body
         val a: Artist = read[Artist](data)
         val result = artistDal.updateArtist(a)
         val jsonResult = write(result)
         logger.info(jsonResult)
         Ok(jsonResult)  
       }    
+
+    case req @ DELETE -> Root / "artists" / artistId =>
+      logger.info("Received artist delete request for this: " + artistId)
+      // TODO - validation to ensure artistId is numeric
+      val deleteResponse = artistDal.deleteArtist(artistId.toInt)
+      val jsonResult = write(deleteResponse)
+      logger.info(jsonResult)
+      Ok(jsonResult)  
+      
 
   }
 
