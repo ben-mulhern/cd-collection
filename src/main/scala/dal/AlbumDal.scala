@@ -38,8 +38,8 @@ trait AlbumDal extends SqlestDb {
     finalQuery.extractAll(albumExtractor)
    
   }
-
-  /*def createAlbum(album: Album): ActionResponse[Album] = {        
+/*
+  def createAlbum(album: Album): ActionResponse[Album] = {        
 
     database.withTransaction { implicit transaction =>
 
@@ -54,7 +54,7 @@ trait AlbumDal extends SqlestDb {
                   AlbumTable.purchased -> album.purchased)
           .execute
 
-      val newAlbumId = 
+      val newAlbumId: Option[Int] = 
         select(max(AlbumTable.id))
           .from(AlbumTable)
           .fetchHead
@@ -65,23 +65,29 @@ trait AlbumDal extends SqlestDb {
             insert
               .into(AlbumSideTable)
 
-            .values(AlbumSideTable.albumId -> album.id.get,
-                    AlbumSideTable.sideNumber -> album.sides.index,
-                    AlbumSideTable.sideName -> album.sides(index))
-            .execute
+          val fullQuery = 
+            album.sides.foldLeft(baseQuery)((q, v) => 
+              q.values(AlbumSideTable.albumId -> album.id.get,
+                    AlbumSideTable.sideNumber -> (album.sides.indexOf(v) + 1),
+                    AlbumSideTable.sideName -> v))
+
+          fullQuery.execute
         }
         else 1
-        
-      (insertAlbumStatement, newAlbumId, insertSidesStatement) match {
+       
+       ActionSuccess(album.copy(id = Some(newAlbumId.get)))
+ 
+
+      /*(insertAlbumStatement, newAlbumId, insertSidesStatement) match {
         case (1, y, 1) if (y.nonEmpty && y.get > 0) => ActionSuccess(album.copy(id = Some(y.get))) 
         case (x, _, _) if (x != 1) => Response.fail("Failed to create new album in database")
         case (_, y, _) if (y.isEmpty || y.get <= 0) => Response.fail("Album created in database but failed to retrieve new id")
         case _ => Response.fail("Album created in database but side records not created")
-      }
+      }*/
 
     }  
 
-  }*/
+  } */
 
   /*def updateArtist(artist: Artist): ActionResponse[Artist] = {
 
