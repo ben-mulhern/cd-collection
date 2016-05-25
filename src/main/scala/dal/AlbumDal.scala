@@ -90,24 +90,55 @@ trait AlbumDal extends SqlestDb {
 
   } 
 
-  /*def updateArtist(artist: Artist): ActionResponse[Artist] = {
+  def updateAlbum(album: Album): ActionResponse[Album] = {
 
     database.withTransaction { implicit transaction =>
 
       val updateStatement = 
-        update(ArtistTable)
-          .set(ArtistTable.displayName -> artist.displayName,
-               ArtistTable.sortName -> artist.sortName)
-          .where(ArtistTable.id === artist.id.get)
+        update(AlbumTable)
+          .set(AlbumTable.name -> album.name,
+                  AlbumTable.artistId -> album.artist.id.get,
+                  AlbumTable.releaseYear -> album.releaseYear,
+                  AlbumTable.albumType -> album.albumType.code,
+                  AlbumTable.lastPlayed -> album.lastPlayed,
+                  AlbumTable.purchased -> album.purchased)
+          .where(AlbumTable.id === album.id.get)
           .execute
 
-      if (updateStatement == 1) ActionSuccess(artist)
-      else Response.fail("Failed to update artist")
+      // TODO - add the logic for album sides
+      
+      if (updateStatement == 1) ActionSuccess(album)
+      else Response.fail("Failed to update album")
           
     }
   }
 
-  def deleteArtist(artistId: Int): ActionResponse[Int] = {
+  private def deleteAlbumSides(album: Album)(implicit t: Transaction) {
+    delete
+      .from(AlbumSideTable)
+      .where(AlbumTable.id === album.id.get)
+  }
+
+  private def insertAlbumSides(album: Album)(implicit t: Transaction) {
+    val baseQuery = 
+    insert
+    .into(AlbumSideTable)
+    .values(
+      AlbumSideTable.albumId -> album.id.get,
+      AlbumSideTable.sideNumber -> 1,
+      AlbumSideTable.sideName -> album.sides(0))
+
+    val fullQuery: InsertValues = 
+    album.sides.tail.foldLeft(baseQuery)((q: InsertValues, v: String) => 
+      q.values(
+        AlbumSideTable.albumId -> album.id.get,
+        AlbumSideTable.sideNumber -> (album.sides.indexOf(v) + 1),
+        AlbumSideTable.sideName -> v))
+
+    fullQuery.execute
+  }
+
+  /*def deleteArtist(artistId: Int): ActionResponse[Int] = {
 
     database.withTransaction { implicit transaction =>
 
