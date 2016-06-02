@@ -29,7 +29,7 @@
       </div>
       <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
-          <li id="albumMenuItem"><a href="pages/albums">Albums</a></li>
+          <li id="albumMenuItem"><a href="pages/artists ">Artists</a></li>
           <li id="albumOrderMenuItem"><a href="pages/albums">Albums</a></li>
         </ul>
       </div><!--/.nav-collapse -->
@@ -147,9 +147,9 @@
 
                <tr ng-repeat="album in albumList.albums | filter:albumList.albumSearchTerm">
                  <td>{{album.name}}</td>
-                 <td>{{artist.displayName}}</td>
+                 <td>{{album.artist.displayName}}</td>
                  <td>{{album.releaseYear}}</td>
-                 <td>{{album.albumType}}</td>
+                 <td>{{album.albumType.description}}</td>
                  <td>{{album.purchased}}</td>
                  <td><a href="">Display</a> |
                    <a href ="" data-toggle="modal" ng-click="albumList.manageAlbum(false, album)">Update</a> |

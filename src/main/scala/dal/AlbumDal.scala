@@ -52,7 +52,9 @@ trait AlbumDal extends SqlestDb {
                   AlbumTable.releaseYear -> album.releaseYear,
                   AlbumTable.albumType -> album.albumType.code,
                   AlbumTable.lastPlayed -> album.lastPlayed,
-                  AlbumTable.purchased -> album.purchased)
+                  AlbumTable.purchased -> album.purchased,
+                  AlbumTable.deleted -> album.deleted,
+                  AlbumTable.holly -> album.holly)
           .execute
 
       val newAlbumId: Option[Int] = 
@@ -86,7 +88,9 @@ trait AlbumDal extends SqlestDb {
                   AlbumTable.releaseYear -> album.releaseYear,
                   AlbumTable.albumType -> album.albumType.code,
                   AlbumTable.lastPlayed -> album.lastPlayed,
-                  AlbumTable.purchased -> album.purchased)
+                  AlbumTable.purchased -> album.purchased,
+                  AlbumTable.deleted -> album.deleted,
+                  AlbumTable.holly -> album.holly)
           .where(AlbumTable.id === album.id.get)
           .execute
 

@@ -29,6 +29,8 @@ object CdExtractors {
     albumType = albumTypeExtractor,
     lastPlayed = AlbumTable.lastPlayed,
     purchased = AlbumTable.purchased,
+    deleted = AlbumTable.deleted,
+    holly = AlbumTable.holly,
     sides = AlbumSideTable.sideName.asList
   )
 

@@ -9,4 +9,6 @@ case class Album(id: Option[Int],
 	             albumType: AlbumType, 
 	             lastPlayed: Option[LocalDate],
 	             purchased: Option[LocalDate],
+	             deleted: Boolean,
+	             holly: Boolean,
 	             sides: List[String])
