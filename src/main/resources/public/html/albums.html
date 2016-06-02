@@ -1,0 +1,176 @@
+ <!doctype html>
+<html lang="en" ng-app="albumApp">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="CD collection">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <title>CD collection - albums</title>
+  
+  <link rel="stylesheet" media="screen" href="/public/stylesheets/bootstrap.min.css" />
+  <link rel="stylesheet" media="screen" href="/public/stylesheets/bootstrap-theme.min.css" />
+  <link rel="stylesheet" media="screen" href="/public/stylesheets/theme.css" />
+  <link rel="shortcut icon" type="image/png" href="/public/images/favicon.png" />
+
+</head>
+<body>
+
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">CD Collection</a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          <li id="albumMenuItem"><a href="pages/albums">Albums</a></li>
+          <li id="albumOrderMenuItem"><a href="pages/albums">Albums</a></li>
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div>
+  </nav>
+
+
+  <div class="container theme-showcase" role="main">
+    
+    <header>
+      <h1>Albums</h1>
+    </header>
+
+    <article ng-controller="AlbumController as albumList">
+
+      <div class="row">  
+        <!-- Modal -->
+        <div class="modal fade" id="manageAlbumWindow" tabindex="-1" role="dialog" aria-labelledby="addAlbumWindow">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="manageAlbumWindow">{{albumList.manageWindowTitle}}</h4>
+              </div>
+
+              
+              <form ng-submit="albumList.setAlbum()">
+                <div class="modal-body">
+                  Album name: <input type="text" ng-model="albumList.formAlbumName" /> <br />
+                  Sort name: <input type="text" name="sortname" ng-model="albumList.formSortName" /> <br />
+                  <!-- <input type = "text" name="parentalbumId" ng-model="parentAlbumId" /> -->
+                </div>  
+
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                  <button type="submit" class="btn btn-primary">{{albumList.manageWindowAction}}</button>
+                </div>
+              </form>
+
+            </div>  
+          </div>  
+        </div>
+      </div>
+
+      <!-- Generic notification window -->
+      <div class="modal fade" id="genericNotificationWindow" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <h4 class="modal-title">{{albumList.genericNotificationTitle}}</h4>
+            </div>
+            <div class="modal-body">
+              <p>{{albumList.genericNotificationMessage}}</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Generic choice window --> 
+      <div class="modal fade" id="genericChoiceWindow" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <h4 class="modal-title">{{albumList.genericWindowTitle}}</h4>
+            </div>
+            <div class="modal-body">
+              <p>{{albumList.genericWindowMessage}}</p>
+            </div>
+            <div class="modal-footer">
+              <form ng-submit="albumList.genericWindowFunction()">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-primary">{{albumList.genericWindowAction}}</button>
+              </form>  
+            </div>
+          </div>
+        </div>
+      </div>      
+      
+      <section>
+        <div class="row">
+          <p>
+            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" ng-click="albumList.manageAlbum(true, null)">
+              Add new album
+            </button>
+          </p>
+          <p>Search albums:
+          <input type="Text" name="albumsearch" ng-model="albumList.albumSearchTerm" />
+          </p>
+        </div>
+      </section>
+      
+      <section>  
+        <span ng-show="albumList.dataError" style="color:red">Waiting for album data.</span>
+
+         <div class="row">
+           <div class="col-md-6">
+             <table class="table table-striped" data-ref="albumList">
+               <tr>
+                 <th>Album</th>
+                 <th>Artist</th>
+                 <th>Year</th>
+                 <th>Type</th>
+                 <th>Purchased</th>
+                 <th>Actions</th>
+               </tr>  
+
+               <tr ng-repeat="album in albumList.albums | filter:albumList.albumSearchTerm">
+                 <td>{{album.name}}</td>
+                 <td>{{artist.displayName}}</td>
+                 <td>{{album.releaseYear}}</td>
+                 <td>{{album.albumType}}</td>
+                 <td>{{album.purchased}}</td>
+                 <td><a href="">Display</a> |
+                   <a href ="" data-toggle="modal" ng-click="albumList.manageAlbum(false, album)">Update</a> |
+                   <a href="" data-toggle="modal" ng-click="albumList.deleteAlbum(album)">Delete</a>
+                 </td>
+               </tr>  
+
+            </table>
+          </div>
+        </div>
+      </section>
+    </article>
+    
+  </div>
+  
+  <script src="/public/javascripts/bower_components/angular/angular.js"></script>
+  <script src="/public/javascripts/bower_components/angular-route/angular-route.js"></script>
+  <script src="/public/javascripts/cd-collection.js"></script>
+  <script src="/public/javascripts/bower_components/angular/angular.js"></script>
+  <script src="/public/javascripts/bower_components/angular-route/angular-route.js"></script>
+  <script src="/public/javascripts/albumApp.js"></script>  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="/public/javascripts/bootstrap.min.js"></script>
+</html>
