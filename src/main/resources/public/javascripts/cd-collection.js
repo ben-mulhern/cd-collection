@@ -11,3 +11,9 @@ function toggleActiveNavbarItemOn(itemId) {
     activeItem.className = "active";
 
 }
+
+function formatDate(date) {
+
+    return date.day + "/" + date.month + "/" + date.year;
+
+}

@@ -4,7 +4,7 @@ Basic web app to learn some Angular, ScalaJS and Http4s. Uses Scala, Sqlest and 
 #To-do
 - Re-write JS with ScalaJS (and re-factor!)
 
-- Album page - finish it. Currently got a problem serialising LocalDates.
+- Album page - finish it.
 
 - Generator page
 

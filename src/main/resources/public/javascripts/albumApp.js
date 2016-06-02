@@ -24,7 +24,6 @@ myApp.controller('AlbumController', ['$log', 'AlbumService', function($log, Albu
 
   AlbumService.getAlbums().then(function(response) {
        self.albums = response.data;
-       console.log(self.albums);
     },
     function() {
       self.dataError = true;
