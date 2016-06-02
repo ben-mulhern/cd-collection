@@ -24,8 +24,6 @@ Basic web app to learn some Angular, ScalaJS and Http4s. Uses Scala, Sqlest and 
 
 - Make URI for searching artists more RESTful
 
-- Factor out common HTML for all pages
-
 #To run
 
 From SBT:
