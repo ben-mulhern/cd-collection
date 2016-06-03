@@ -5,6 +5,10 @@ Basic web app to learn some Angular, ScalaJS and Http4s. Uses Scala, Sqlest and 
 - Re-write JS with ScalaJS (and re-factor!)
 
 - Album page - finish it.
+	- Edit/delete/display.
+	- Show purchased date on front page.
+	- Make filter more intelligent.
+	- Get title bar item to highlight.
 
 - Generator page
 
@@ -18,9 +22,13 @@ Basic web app to learn some Angular, ScalaJS and Http4s. Uses Scala, Sqlest and 
 
 - Add all the parent artist logic and functionality inc domain validation for artists to only allow one level of parenthood
 
-- Ship master copy with empty DB
+- Ship master copy with empty DB (fix this after adding new columns)
 
 - Make URI for searching artists more RESTful
+
+- Add URI for albums within an artists e.g. 
+	/artists/{artist-id}/albums/{album-id}
+	/artists/{artist-id}/albums?searchTerm=Metal
 
 - Factor out common HTML for all pages
 

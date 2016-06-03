@@ -1,5 +1,7 @@
 function toggleActiveNavbarItemOn(itemId) {
 
+    console.log("I was called with " + itemId);
+
     var artistMenuItem = document.getElementById('artistMenuItem');
     var albumMenuItem = document.getElementById('albumMenuItem');
     
@@ -8,12 +10,13 @@ function toggleActiveNavbarItemOn(itemId) {
 
     var activeItem = document.getElementById(itemId);
 
+    console.log("activeItem is " + activeItem);
+
     activeItem.className = "active";
 
-}
+};
 
-function formatDate(date) {
 
+var formatDate = function(date) {
     return date.day + "/" + date.month + "/" + date.year;
-
-}
+};

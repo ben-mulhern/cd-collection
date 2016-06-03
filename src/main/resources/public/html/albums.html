@@ -14,7 +14,7 @@
   <link rel="shortcut icon" type="image/png" href="/public/images/favicon.png" />
 
 </head>
-<body>
+<body onload="javascript:toggleActiveNavbarItemOn('albumMenuItem')">
 
   <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
@@ -150,7 +150,7 @@
                  <td>{{album.artist.displayName}}</td>
                  <td>{{album.releaseYear}}</td>
                  <td>{{album.albumType.description}}</td>
-                 <td>{{album.purchased}}</td>
+                 <td>{{formatDate(album.purchased)}}</td>
                  <td><a href="">Display</a> |
                    <a href ="" data-toggle="modal" ng-click="albumList.manageAlbum(false, album)">Update</a> |
                    <a href="" data-toggle="modal" ng-click="albumList.deleteAlbum(album)">Delete</a>
