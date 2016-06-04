@@ -16,7 +16,3 @@ function toggleActiveNavbarItemOn(itemId) {
 
 };
 
-
-var formatDate = function(date) {
-    return date.day + "/" + date.month + "/" + date.year;
-};

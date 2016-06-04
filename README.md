@@ -6,7 +6,6 @@ Basic web app to learn some Angular, ScalaJS and Http4s. Uses Scala, Sqlest and 
 
 - Album page - finish it.
 	- Edit/delete/display.
-	- Show purchased date on front page.
 	- Make filter more intelligent.
 	- Get title bar item to highlight.
 

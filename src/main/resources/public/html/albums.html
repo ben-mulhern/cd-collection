@@ -59,8 +59,20 @@
               <form ng-submit="albumList.setAlbum()">
                 <div class="modal-body">
                   Album name: <input type="text" ng-model="albumList.formAlbumName" /> <br />
-                  Sort name: <input type="text" name="sortname" ng-model="albumList.formSortName" /> <br />
-                  <!-- <input type = "text" name="parentalbumId" ng-model="parentAlbumId" /> -->
+                  Artist: <input list="artists" name="artistInput" />
+                  <datalist id="artists">
+                    <option value="placeholder" />
+                    <option value="other placeholder" />
+                  </datalist> <br />
+                  Release year: <input type="number" name="releaseyear" ng-model="albumList.formYear" /> <br />
+                  Album type: <select name="albumtype">
+                    <option value="STU" selected>Studio album</option>
+                  </select>  <br />
+                  Last played date: <input type="date" name="lastplayed" ng-model="albumList.formLastPlayed" /> <br />
+                  Purchase date: <input type="date" name="purchased" ng-model="albumList.formPurchased" /> <br />
+                  Deleted: <input type="checkbox" name="deleted" ng-model="albumList.formDeleted" /> <br />
+                  Holly's?: <input type="checkbox" name="holly" ng-model="albumList.formHolly" /> <br />
+                  Sides: <input type="text" name="sides" ng-model="albumList.formSides  " /> <br />
                 </div>  
 
                 <div class="modal-footer">
@@ -150,7 +162,7 @@
                  <td>{{album.artist.displayName}}</td>
                  <td>{{album.releaseYear}}</td>
                  <td>{{album.albumType.description}}</td>
-                 <td>{{formatDate(album.purchased)}}</td>
+                 <td>{{albumList.formatDate(album.purchased)}}</td>
                  <td><a href="">Display</a> |
                    <a href ="" data-toggle="modal" ng-click="albumList.manageAlbum(false, album)">Update</a> |
                    <a href="" data-toggle="modal" ng-click="albumList.deleteAlbum(album)">Delete</a>

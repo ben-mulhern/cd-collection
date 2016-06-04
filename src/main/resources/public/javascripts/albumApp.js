@@ -22,6 +22,18 @@ myApp.controller('AlbumController', ['$log', 'AlbumService', function($log, Albu
 
   self.albumModel;
 
+  String.prototype.paddingLeft = function (paddingValue) {
+    return String(paddingValue + this).slice(-paddingValue.length);
+  };
+
+  self.formatDate = function(date) {
+    if (date) {
+      return date.day.toString().paddingLeft("00") + "/" + 
+             date.month.toString().paddingLeft("00") + "/" + 
+             date.year.toString().substring(2, 3).paddingLeft("00");
+    } else { return "" };
+  };
+
   AlbumService.getAlbums().then(function(response) {
        self.albums = response.data;
     },
