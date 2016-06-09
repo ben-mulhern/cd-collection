@@ -31,6 +31,8 @@ Basic web app to learn some Angular, ScalaJS and Http4s. Uses Scala, Sqlest and 
 
 - Factor out common HTML for all pages
 
+- Searching over special characters
+
 #To run
 
 From SBT:
