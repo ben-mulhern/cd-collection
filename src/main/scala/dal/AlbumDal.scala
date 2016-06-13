@@ -150,5 +150,10 @@ trait AlbumDal extends SqlestDb {
     }
   }
 
+  def getAlbumTypes: List[AlbumType] = {
+     select
+       .from(AlbumTypeTable)
+       .extractAll(albumTypeExtractor) 
+  }
 }
 

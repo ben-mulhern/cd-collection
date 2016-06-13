@@ -112,10 +112,11 @@ myApp.controller('ArtistController', ['$log', 'ArtistService', function($log, Ar
           var x = self.artists.findIndex(checkDelete);
           self.artists.splice(x, 1);
           $('#genericChoiceWindow').modal('hide');
+          self.artistSearchTerm = "";
           self.showGenericNotification("Artist deleted", "Artist " + artist.displayName + " was deleted successfully.");
         })
         .error(function() {
-          $log.debug("Delete Post went wrong!");
+          $log.debug("Delete went wrong!");
         }
       );      
     };
