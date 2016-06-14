@@ -8,6 +8,9 @@ Basic web app to learn some Angular, ScalaJS and Http4s. Uses Scala, Sqlest and 
 	- Edit/delete/display.
 	- Make filter more intelligent.
 	- Get title bar item to highlight.
+	- Default value in Album type select
+	- Get datalist/model working
+	- Placeholders for form fields?
 
 - Generator page
 
@@ -32,6 +35,8 @@ Basic web app to learn some Angular, ScalaJS and Http4s. Uses Scala, Sqlest and 
 - Factor out common HTML for all pages
 
 - Searching over special characters
+
+- Album sides functionality
 
 #To run
 

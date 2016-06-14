@@ -58,20 +58,20 @@
               
               <form ng-submit="albumList.setAlbum()">
                 <div class="modal-body">
-                  Album name: <input type="text" ng-model="albumList.formAlbumName" /> <br />
-                  Artist: <input list="artists" name="artistInput" />
-                  <datalist id="artists">
-                    <option ng-repeat = "artist in albumList.artists" value="{{artist.displayName}}" />
+                  Album name: <input type="text" ng-model="albumList.albumModel.name" required="required" /> <br />
+                  Artist: <input list="artists" name="artistInput" required="required" />
+                  <datalist id="artists" ng-model="albumList.albumModel.artist">
+                    <option ng-repeat = "artist in albumList.artists" value="{{artist.displayName}}">{{artist}}</option>
                   </datalist> <br />
-                  Release year: <input type="number" name="releaseyear" ng-model="albumList.formYear" min="0001" max="9999" length="4" /> <br />
-                  Album type: <select name="albumtype">
-                    <option ng-repeat="type in albumList.albumTypes" value="{{type.code}}" ng-selected="{{type.code == 'STU'}}">{{type.description}}</option>
+                  Release year: <input type="number" name="releaseyear" ng-model="albumList.albumModel.releaseYear" min="0001" max="9999" required="required" /> <br />
+                  Album type: <select name="albumtype" ng-model="albumList.albumModel.albumType" 
+                  ng-options="type.description for type in albumList.albumTypes track by type.code">
                   </select>  <br />
-                  Last played date: <input type="date" name="lastplayed" ng-model="albumList.formLastPlayed" /> <br />
-                  Purchase date: <input type="date" name="purchased" ng-model="albumList.formPurchased" /> <br />
-                  Deleted: <input type="checkbox" name="deleted" ng-model="albumList.formDeleted" /> <br />
-                  Holly's?: <input type="checkbox" name="holly" ng-model="albumList.formHolly" /> <br />
-                  Sides: <input type="text" name="sides" ng-model="albumList.formSides  " /> <br />
+                  Last played date: <input type="date" name="lastplayed" ng-model="albumList.albumModel.lastPlayed" /> <br />
+                  Purchase date: <input type="date" name="purchased" ng-model="albumList.albumModel.purchased" /> <br />
+                  Deleted: <input type="checkbox" name="deleted" value="true" ng-model="albumList.albumModel.deleted" /> <br />
+                  Holly's?: <input type="checkbox" name="holly" value="true" ng-model="albumList.albumModel.holly" /> <br />
+                  <!--Sides: <input type="text" name="sides" ng-model="albumList.formSides  " /> <br />-->
                 </div>  
 
                 <div class="modal-footer">

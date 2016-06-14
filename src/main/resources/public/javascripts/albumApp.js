@@ -8,8 +8,7 @@ myApp.controller('AlbumController', ['$log', 'AlbumService', function($log, Albu
   self.albumTypes;
   self.artists;
   self.dataError = false;
-  self.formAlbumName;
-  self.formSortName;
+
   self.albumSearchTerm;
 
   self.genericWindowTitle;
@@ -54,6 +53,9 @@ myApp.controller('AlbumController', ['$log', 'AlbumService', function($log, Albu
       $log.debug("It went wrong!");
     });
 
+  // Set a default for the album type in the form
+  //self.albumModel.albumType = {code: 'STU', description: 'Studio album'};
+
   // Get the list of artists from the server (need to de-duplicate this logic)
   AlbumService.getArtists().then(function(response) {
        self.artists = response.data;
@@ -64,15 +66,14 @@ myApp.controller('AlbumController', ['$log', 'AlbumService', function($log, Albu
     });
 
     self.createAlbum = function() {
-      AlbumService.createAlbum(self.formAlbumName, self.formSortName)
+      AlbumService.createAlbum(self.albumModel)
         .success(function(response) {
           self.albums.push(response.value);
           self.albums = self.sortAlbumList(self.albums);
           $('#manageAlbumWindow').modal('hide');
-          self.showGenericNotification("Album created", "Album " + self.formAlbumName + " was created successfully.")
-          self.albumSearchTerm = self.formAlbumName;
-          self.formAlbumName = "";
-          self.formSortName = "";
+          self.showGenericNotification("Album created", "Album " + self.albumModel.albumName + " was created successfully.")
+          self.albumSearchTerm = self.albumModel.albumName;
+          self.albumModel;
         })
         .error(function() {
           $log.debug("Post went wrong!");
@@ -117,11 +118,10 @@ myApp.controller('AlbumController', ['$log', 'AlbumService', function($log, Albu
     };
 
     self.setAlbum = function() {
+      console.log("Set album called. Album model is " + self.albumModel);
       if (self.manageWindowMode)
         self.createAlbum();
       else {
-        self.albumModel.displayName = self.formAlbumName;
-        self.albumModel.sortName = self.formSortName;
         self.updateAlbum();
       };
     }
@@ -189,10 +189,9 @@ myApp.service('AlbumService', ['$http', function($http){
     return $http.get('/albums');
   };
 
-  self.createAlbum = function(displayName, sortName) {
-    var data = {displayName: displayName, sortName: sortName};
-    console.log("Creating album - POST /albums, with body " + data);
-    return $http.post('/albums', data);
+  self.createAlbum = function(album) {
+    console.log("Creating album - POST /albums, with body " + album);
+    return $http.post('/albums', album);
   };
 
   self.updateAlbum = function(album) {
