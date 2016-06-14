@@ -5,6 +5,8 @@ myApp.controller('AlbumController', ['$log', 'AlbumService', function($log, Albu
   var self = this;
 
   self.albums;
+  self.albumTypes;
+  self.artists;
   self.dataError = false;
   self.formAlbumName;
   self.formSortName;
@@ -34,8 +36,27 @@ myApp.controller('AlbumController', ['$log', 'AlbumService', function($log, Albu
     } else { return "" };
   };
 
+  // Get the list of albums from the server
   AlbumService.getAlbums().then(function(response) {
        self.albums = response.data;
+    },
+    function() {
+      self.dataError = true;
+      $log.debug("It went wrong!");
+    });
+
+  // Get the list of album types from the server
+  AlbumService.getAlbumTypes().then(function(response) {
+       self.albumTypes = response.data;
+    },
+    function() {
+      self.dataError = true;
+      $log.debug("It went wrong!");
+    });
+
+  // Get the list of artists from the server (need to de-duplicate this logic)
+  AlbumService.getArtists().then(function(response) {
+       self.artists = response.data;
     },
     function() {
       self.dataError = true;
@@ -184,6 +205,16 @@ myApp.service('AlbumService', ['$http', function($http){
     var url = "/albums/" + album.id;
     console.log("DELETING album - DELETE " + url);
     return $http.delete(url);
+  };
+
+  self.getAlbumTypes = function() {
+    console.log("Requesting list of album types - GET /albums-types");
+    return $http.get('/album-types');
+  };
+
+  self.getArtists = function() {
+    console.log("Requesting list of all artists - GET /artists");
+    return $http.get('/artists');
   };
 
 }]);

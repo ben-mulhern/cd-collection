@@ -16,33 +16,27 @@ object StaticService extends LazyLogging {
     // Generic resources
     case req @ GET -> "public" /: path =>
       logger.info(s"Received static request $path")
-      val resourcePath = "/public" + path.toString
-      StaticFile.fromResource(resourcePath, Some(req))
-        .map(Task.now)
-        .getOrElse(NotFound())
+      getStaticFile(req, "/public" + path.toString)
 
     // Nicer URIs for the pages
     case req @ GET -> Root =>
-      logger.info("Received page request for index page")
-      val resourcePath = "/public/html/artists.html"
-      StaticFile.fromResource(resourcePath, Some(req))
-        .map(Task.now)
-        .getOrElse(NotFound())  
+      logger.info("Received page request for index page (albums)")
+      getStaticFile(req, "/public/html/albums.html")
 
     case req @ GET -> Root / "pages" / "artists" =>
       logger.info("Received page request for artist page")
-      val resourcePath = "/public/html/artists.html"
-      StaticFile.fromResource(resourcePath, Some(req))
-        .map(Task.now)
-        .getOrElse(NotFound())
+      getStaticFile(req, "/public/html/artists.html")
  
      case req @ GET -> Root / "pages" / "albums" =>
       logger.info("Received page request for album page")
-      val resourcePath = "/public/html/albums.html"
-      StaticFile.fromResource(resourcePath, Some(req))
-        .map(Task.now)
-        .getOrElse(NotFound())     
+      getStaticFile(req, "/public/html/albums.html")
 
+  }
+
+  def getStaticFile(req: Request, path: String) = {
+    StaticFile.fromResource(path, Some(req))
+      .map(Task.now)
+      .getOrElse(NotFound())     
   }
 
 }

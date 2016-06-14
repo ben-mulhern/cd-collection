@@ -29,8 +29,8 @@
       </div>
       <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
-          <li id="albumMenuItem"><a href="pages/artists ">Artists</a></li>
           <li id="albumOrderMenuItem"><a href="pages/albums">Albums</a></li>
+          <li id="albumMenuItem"><a href="pages/artists ">Artists</a></li>
         </ul>
       </div><!--/.nav-collapse -->
     </div>
@@ -61,12 +61,11 @@
                   Album name: <input type="text" ng-model="albumList.formAlbumName" /> <br />
                   Artist: <input list="artists" name="artistInput" />
                   <datalist id="artists">
-                    <option value="placeholder" />
-                    <option value="other placeholder" />
+                    <option ng-repeat = "artist in albumList.artists" value="{{artist.displayName}}" />
                   </datalist> <br />
-                  Release year: <input type="number" name="releaseyear" ng-model="albumList.formYear" /> <br />
+                  Release year: <input type="number" name="releaseyear" ng-model="albumList.formYear" min="0001" max="9999" length="4" /> <br />
                   Album type: <select name="albumtype">
-                    <option value="STU" selected>Studio album</option>
+                    <option ng-repeat="type in albumList.albumTypes" value="{{type.code}}" ng-selected="{{type.code == 'STU'}}">{{type.description}}</option>
                   </select>  <br />
                   Last played date: <input type="date" name="lastplayed" ng-model="albumList.formLastPlayed" /> <br />
                   Purchase date: <input type="date" name="purchased" ng-model="albumList.formPurchased" /> <br />
