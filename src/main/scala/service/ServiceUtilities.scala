@@ -21,4 +21,6 @@ object ServiceUtilities extends LazyLogging {
         .putHeaders(Header("Access-Control-Allow-Origin", "*"))
   }
 
+  object SearchTerm extends QueryParamDecoderMatcher[String]("search-term")
+
 }

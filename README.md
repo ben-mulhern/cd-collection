@@ -26,8 +26,6 @@ Basic web app to learn some Angular, ScalaJS and Http4s. Uses Scala, Sqlest and 
 
 - Ship master copy with empty DB (fix this after adding new columns)
 
-- Make URI for searching artists more RESTful
-
 - Add URI for albums within an artists e.g. 
 	/artists/{artist-id}/albums/{album-id}
 	/artists/{artist-id}/albums?searchTerm=Metal

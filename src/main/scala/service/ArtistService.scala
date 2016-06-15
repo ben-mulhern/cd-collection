@@ -17,7 +17,7 @@ object ArtistService extends LazyLogging {
 
   val artistService = HttpService {
 
-    case GET -> Root / "artists" / searchTerm =>
+    case GET -> Root / "artists" :? SearchTerm(searchTerm) =>
       logger.info(s"Received request artist / $searchTerm")
       httpJsonResponse(artistDal.getArtists(searchTerm))
 

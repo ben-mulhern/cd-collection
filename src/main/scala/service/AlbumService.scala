@@ -17,7 +17,7 @@ object AlbumService extends LazyLogging {
   val albumService = HttpService {
 
     // TODO - Need to factor in optional artist Id
-    case GET -> Root / "albums" / searchTerm =>
+    case GET -> Root / "albums" :? SearchTerm(searchTerm) =>
       logger.info(s"Received request album / $searchTerm")
       httpJsonResponse(albumDal.getAlbums(searchTerm))
 
