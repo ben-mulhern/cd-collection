@@ -59,10 +59,12 @@
               <form ng-submit="albumList.setAlbum()">
                 <div class="modal-body">
                   Album name: <input type="text" ng-model="albumList.albumModel.name" required="required" /> <br />
-                  Artist: <input list="artists" name="artistInput" required="required" />
+                  <!--Artist: <input list="artists" name="artistInput" required="required" />
                   <datalist id="artists" ng-model="albumList.albumModel.artist">
                     <option ng-repeat = "artist in albumList.artists" value="{{artist.displayName}}">{{artist}}</option>
-                  </datalist> <br />
+                  </datalist> <br />-->
+                  Artist: <select name="artistname" ng-model="albumList.albumModel.artist" 
+                    ng-options="artist.displayName for artist in albumList.artists track by artist.id"></select> <br />
                   Release year: <input type="number" name="releaseyear" ng-model="albumList.albumModel.releaseYear" min="0001" max="9999" required="required" /> <br />
                   Album type: <select name="albumtype" ng-model="albumList.albumModel.albumType" 
                   ng-options="type.description for type in albumList.albumTypes track by type.code">

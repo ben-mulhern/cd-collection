@@ -31,7 +31,7 @@ myApp.controller('AlbumController', ['$log', 'AlbumService', function($log, Albu
     if (date) {
       return date.day.toString().paddingLeft("00") + "/" + 
              date.month.toString().paddingLeft("00") + "/" + 
-             date.year.toString().substring(2, 3).paddingLeft("00");
+             date.year.toString().substring(2, 4).paddingLeft("00");
     } else { return "" };
   };
 
