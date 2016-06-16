@@ -24,6 +24,17 @@ trait ArtistDal extends SqlestDb {
    
   }
 
+  def getArtist(artistId: Int): Option[Artist] = {
+    select
+      .from(ArtistTable)
+      .leftJoin(ArtistLinkTable)
+        .on(ArtistTable.id === ArtistLinkTable.relatedArtist)
+      .leftJoin(SecondArtistTable)
+        .on(ArtistLinkTable.parentArtist === SecondArtistTable.id)
+      .where(ArtistTable.id === artistId)
+      .extractHeadOption(artistExtractor)
+  }
+
   def createArtist(artist: Artist): ActionResponse[Artist] = {        
 
     database.withTransaction { implicit transaction =>

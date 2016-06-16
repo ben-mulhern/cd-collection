@@ -9,7 +9,7 @@ import response._
 
 trait AlbumDal extends SqlestDb {
 
-  def getAlbums(searchTerm: String = "", artist: Option[Artist] = None): List[Album] = {
+  def getAlbums(searchTerm: String = "", artistId: Option[Int] = None): List[Album] = {
 
     val wildCardSearch = ("%" + searchTerm + "%").toUpperCase
 
@@ -31,12 +31,31 @@ trait AlbumDal extends SqlestDb {
                (upper(AlbumSideTable.sideName) like wildCardSearch)) 
         .orderBy(upper(AlbumTable.name), AlbumTable.id, AlbumSideTable.sideNumber)
 
-    val finalQuery = if (artist.isEmpty) baseQuery
+    val finalQuery = if (artistId.isEmpty) baseQuery
                      else {
-                        baseQuery.where(AlbumTable.artistId === artist.get.id.get.constant)
+                        baseQuery.where(AlbumTable.artistId === artistId.get.constant)
                      }
 
     finalQuery.extractAll(albumExtractor)
+   
+  }
+
+  def getAlbum(albumId: Int): Option[Album] = {
+
+    select
+      .from(AlbumTable)
+      .innerJoin(ArtistTable)
+        .on(AlbumTable.artistId === ArtistTable.id)
+      .leftJoin(ArtistLinkTable)
+        .on(ArtistTable.id === ArtistLinkTable.relatedArtist)
+      .leftJoin(SecondArtistTable)
+        .on(ArtistLinkTable.parentArtist === SecondArtistTable.id)
+      .innerJoin(AlbumTypeTable)
+        .on(AlbumTable.albumType === AlbumTypeTable.albumType)
+      .leftJoin(AlbumSideTable)
+        .on(AlbumTable.id === AlbumSideTable.albumId)
+      .where(ArtistTable.id === albumId)
+      .extractHeadOption(albumExtractor)
    
   }
 

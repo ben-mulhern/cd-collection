@@ -16,10 +16,22 @@ object AlbumService extends LazyLogging {
 
   val albumService = HttpService {
 
-    // TODO - Need to factor in optional artist Id
     case GET -> Root / "albums" :? SearchTerm(searchTerm) =>
-      logger.info(s"Received request album / $searchTerm")
+      logger.info(s"Received request for albums with search term $searchTerm")
       httpJsonResponse(albumDal.getAlbums(searchTerm))
+
+    case GET -> Root / "albums" / albumId =>
+      logger.info(s"Received request for album with id $albumId")
+      httpJsonResponse(albumDal.getAlbum(albumId.toInt))
+
+    case GET -> Root / "artists" / artistId / "albums" :? SearchTerm(searchTerm) =>
+      logger.info(s"Received request for albums by artist $artistId with search term $searchTerm")
+      httpJsonResponse(albumDal.getAlbums(searchTerm, Some(artistId.toInt))) 
+
+    // Todo: protect against non-integer artist id
+    case GET -> Root / "artists" / artistId / "albums" =>
+      logger.info(s"Received request for all albums by artist $artistId")
+      httpJsonResponse(albumDal.getAlbums(artistId = Some(artistId.toInt)))      
 
     case GET -> Root / "albums" =>
       logger.info(s"Received request for all albums")

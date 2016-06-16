@@ -25,6 +25,10 @@ object ArtistService extends LazyLogging {
       logger.info(s"Received request for all artists")
       httpJsonResponse(artistDal.getArtists())
 
+    case GET -> Root / "artists" / artistId =>
+      logger.info(s"Received request artist $artistId")
+      httpJsonResponse(artistDal.getArtist(artistId.toInt))
+
     case req @ POST -> Root / "artists" =>
       req.decode[String] { data =>
         logger.info("Received artist create request for this: " + data)
