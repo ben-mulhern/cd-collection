@@ -7,8 +7,8 @@ case class Album(id: Option[Int],
 	             artist: Artist, 
 	             releaseYear: Int, 
 	             albumType: AlbumType, 
-	             lastPlayed: Option[LocalDate],
-	             purchased: Option[LocalDate],
-	             deleted: Boolean,
-	             holly: Boolean,
-	             sides: List[String])
+	             lastPlayed: Option[LocalDate] = None,
+	             purchased: Option[LocalDate] = None,
+	             deleted: Boolean = false,
+	             holly: Boolean = false,
+	             sides: List[String] = Nil)
