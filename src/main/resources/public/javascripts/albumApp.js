@@ -21,6 +21,9 @@ myApp.controller('AlbumController', ['$log', 'AlbumService', function($log, Albu
   self.manageWindowAction;
   self.manageWindowMode;
 
+  self.formLastPlayed;
+  self.formPurchased;
+
   self.albumModel;
 
   String.prototype.paddingLeft = function (paddingValue) {
@@ -34,6 +37,13 @@ myApp.controller('AlbumController', ['$log', 'AlbumService', function($log, Albu
              date.year.toString().substring(2, 4).paddingLeft("00");
     } else { return "" };
   };
+
+  self.setFormDates = function() {
+    //console.log(self.formPurchased.year);
+    console.log(self.formLastPlayed.getFullYear() + "-" 
+                + (self.formLastPlayed.getMonth() + 1) + "-" 
+                + self.formLastPlayed.getDate());
+  }
 
   // Get the list of albums from the server
   AlbumService.getAlbums().then(function(response) {
