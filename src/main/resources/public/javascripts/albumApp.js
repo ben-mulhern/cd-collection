@@ -39,10 +39,18 @@ myApp.controller('AlbumController', ['$log', 'AlbumService', function($log, Albu
   };
 
   self.setFormDates = function() {
-    //console.log(self.formPurchased.year);
-    console.log(self.formLastPlayed.getFullYear() + "-" 
-                + (self.formLastPlayed.getMonth() + 1) + "-" 
-                + self.formLastPlayed.getDate());
+    self.albumModel.lastPlayed = {
+      year : self.formLastPlayed.getFullYear(),
+      month : self.formLastPlayed.getMonth() + 1,
+      day : self.formLastPlayed.getDate()
+    };
+
+    self.albumModel.purchased = {
+      year : self.formPurchased.getFullYear(),
+      month : self.formPurchased.getMonth() + 1,
+      day : self.formPurchased.getDate()
+    };
+
   }
 
   // Get the list of albums from the server
@@ -116,8 +124,8 @@ myApp.controller('AlbumController', ['$log', 'AlbumService', function($log, Albu
 
     self.sortAlbumList = function(albumList) {
       return albumList.sort(function(a, b) {
-        var aCaps = a.sortName.toUpperCase();
-        var bCaps = b.sortName.toUpperCase();
+        var aCaps = a.name.toUpperCase();
+        var bCaps = b.name.toUpperCase();
         if (aCaps < bCaps)
           return -1;
         if (aCaps > bCaps)
