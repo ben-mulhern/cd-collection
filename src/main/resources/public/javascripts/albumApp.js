@@ -192,6 +192,12 @@ myApp.controller('AlbumController', ['$log', 'AlbumService', function($log, Albu
         self.formSortName = album.sortName; 
         self.manageWindowTitle = "Update album";
         self.manageWindowAction = "Update album";
+
+        self.formPurchased = Date(self.albumModel.purchased.year, 
+                                  self.albumModel.purchased.month,
+                                  self.albumModel.purchased.day,
+                                  0, 0, 0, 0);
+
       };  
       $('#manageAlbumWindow').modal('show');        
     };
