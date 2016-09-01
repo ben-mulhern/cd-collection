@@ -193,10 +193,23 @@ myApp.controller('AlbumController', ['$log', 'AlbumService', function($log, Albu
         self.manageWindowTitle = "Update album";
         self.manageWindowAction = "Update album";
 
-        self.formPurchased = Date(self.albumModel.purchased.year, 
-                                  self.albumModel.purchased.month,
-                                  self.albumModel.purchased.day,
-                                  0, 0, 0, 0);
+        if (self.albumModel.purchased) {  
+          self.formPurchased = new Date(self.albumModel.purchased.year, 
+                                        self.albumModel.purchased.month,
+                                        self.albumModel.purchased.day,
+                                        0, 0, 0, 0);
+        } else {
+          self.formPurchased = null;
+        };
+
+        if (self.albumModel.lastPlayed) {          
+          self.formLastPlayed = new Date(self.albumModel.lastPlayed.year, 
+                                         self.albumModel.lastPlayed.month,
+                                         self.albumModel.lastPlayed.day,
+                                         0, 0, 0, 0);
+        } else {
+          self.formLastPlayed = null;
+        };
 
       };  
       $('#manageAlbumWindow').modal('show');        
