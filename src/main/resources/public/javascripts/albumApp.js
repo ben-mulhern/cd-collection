@@ -24,7 +24,17 @@ myApp.controller('AlbumController', ['$log', 'AlbumService', function($log, Albu
   self.formLastPlayed;
   self.formPurchased;
 
-  self.albumModel;
+  self.albumModel = {
+    name : "",
+    artist : "",
+    releaseYear : "",
+    deleted : false,
+    holly : false,
+    sides : "",
+    lastPlayed : "",
+    purchased : "",
+    albumType : ""
+  };
 
   String.prototype.paddingLeft = function (paddingValue) {
     return String(paddingValue + this).slice(-paddingValue.length);
@@ -71,9 +81,6 @@ myApp.controller('AlbumController', ['$log', 'AlbumService', function($log, Albu
       $log.debug("It went wrong!");
     });
 
-  // Set a default for the album type in the form
-  //self.albumModel.albumType = {code: 'STU', description: 'Studio album'};
-
   // Get the list of artists from the server (need to de-duplicate this logic)
   AlbumService.getArtists().then(function(response) {
        self.artists = response.data;
@@ -113,8 +120,7 @@ myApp.controller('AlbumController', ['$log', 'AlbumService', function($log, Albu
           $('#manageAlbumWindow').modal('hide');
           self.showGenericNotification("Album updated", "Album " + self.formAlbumName + " was updated successfully.")
           self.albumSearchTerm = self.formAlbumName;
-          self.formAlbumName = "";
-          self.formSortName = "";
+          self.clearForm();
         })
         .error(function() {
           $log.debug("Put went wrong!");
@@ -179,11 +185,26 @@ myApp.controller('AlbumController', ['$log', 'AlbumService', function($log, Albu
       $('#genericChoiceWindow').modal('show');
     }
 
+    self.clearForm = function() {
+      self.albumModel.name = "";
+      self.albumModel.artist = "";
+      self.albumModel.releaseYear = "";
+      self.formLastPlayed = 0;
+      self.formPurchased = 0;
+      self.albumModel.deleted = false;
+      self.albumModel.holly = false;
+      self.albumModel.sides = null;
+      self.albumModel.lastPlayed = 0;
+      self.albumModel.purchased = 0;
+      //Set a default for the album type in the form
+      self.albumModel.albumType = {code: 'STU', description: 'Studio album'};
+
+    };
+
     self.manageAlbum = function(createMode, album) {
       self.manageWindowMode = createMode;
       if (createMode) {
-        self.formAlbumName = "";
-        self.formSortName = "";      
+        self.clearForm(); 
         self.manageWindowTitle = "Add album";
         self.manageWindowAction = "Add new album";
       } else { 
