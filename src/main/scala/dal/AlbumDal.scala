@@ -129,7 +129,7 @@ trait AlbumDal extends SqlestDb {
   private def deleteAlbumSides(albumId: Int)(implicit t: Transaction): Int = {
     delete
       .from(AlbumSideTable)
-      .where(AlbumTable.id === albumId)
+      .where(AlbumSideTable.albumId === albumId)
       .execute
   }
 

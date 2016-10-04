@@ -49,16 +49,20 @@ myApp.controller('AlbumController', ['$log', 'AlbumService', function($log, Albu
   };
 
   self.setFormDates = function() {
-    self.albumModel.lastPlayed = {
-      year : self.formLastPlayed.getFullYear(),
-      month : self.formLastPlayed.getMonth() + 1,
-      day : self.formLastPlayed.getDate()
+    if (self.formLastPlayed) {
+      self.albumModel.lastPlayed = {
+        year : self.formLastPlayed.getFullYear(),
+        month : self.formLastPlayed.getMonth() + 1,
+        day : self.formLastPlayed.getDate()
+      };
     };
 
-    self.albumModel.purchased = {
-      year : self.formPurchased.getFullYear(),
-      month : self.formPurchased.getMonth() + 1,
-      day : self.formPurchased.getDate()
+    if (self.formPurchased) {
+      self.albumModel.purchased = {
+        year : self.formPurchased.getFullYear(),
+        month : self.formPurchased.getMonth() + 1,
+        day : self.formPurchased.getDate()
+      };
     };
 
   }
@@ -96,8 +100,8 @@ myApp.controller('AlbumController', ['$log', 'AlbumService', function($log, Albu
           self.albums.push(response.value);
           self.albums = self.sortAlbumList(self.albums);
           $('#manageAlbumWindow').modal('hide');
-          self.showGenericNotification("Album created", "Album " + self.albumModel.albumName + " was created successfully.")
-          self.albumSearchTerm = self.albumModel.albumName;
+          self.showGenericNotification("Album created", "Album " + self.albumModel.name + " was created successfully.")
+          self.albumSearchTerm = self.albumModel.name;
           self.albumModel;
         })
         .error(function() {
@@ -118,8 +122,8 @@ myApp.controller('AlbumController', ['$log', 'AlbumService', function($log, Albu
           self.albums = self.sortAlbumList(self.albums);
 
           $('#manageAlbumWindow').modal('hide');
-          self.showGenericNotification("Album updated", "Album " + self.formAlbumName + " was updated successfully.")
-          self.albumSearchTerm = self.formAlbumName;
+          self.showGenericNotification("Album updated", "Album " + self.albumModel.name + " was updated successfully.")
+          self.albumSearchTerm = self.albumModel.name;
           self.clearForm();
         })
         .error(function() {
@@ -209,14 +213,12 @@ myApp.controller('AlbumController', ['$log', 'AlbumService', function($log, Albu
         self.manageWindowAction = "Add new album";
       } else { 
         self.albumModel = album;
-        self.formAlbumName = album.displayName;
-        self.formSortName = album.sortName; 
         self.manageWindowTitle = "Update album";
         self.manageWindowAction = "Update album";
 
         if (self.albumModel.purchased) {  
           self.formPurchased = new Date(self.albumModel.purchased.year, 
-                                        self.albumModel.purchased.month,
+                                        self.albumModel.purchased.month - 1,
                                         self.albumModel.purchased.day,
                                         0, 0, 0, 0);
         } else {
@@ -225,7 +227,7 @@ myApp.controller('AlbumController', ['$log', 'AlbumService', function($log, Albu
 
         if (self.albumModel.lastPlayed) {          
           self.formLastPlayed = new Date(self.albumModel.lastPlayed.year, 
-                                         self.albumModel.lastPlayed.month,
+                                         self.albumModel.lastPlayed.month - 1,
                                          self.albumModel.lastPlayed.day,
                                          0, 0, 0, 0);
         } else {
