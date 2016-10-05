@@ -3,7 +3,6 @@ Basic web app to learn some Angular, ScalaJS and Http4s. Uses Scala, Sqlest and 
 
 #To-do - features
 
-- Album delete feature
 - Add album with new artist feature
 - Add album from artist page feature
 - Go to albums from artist page feature

@@ -162,7 +162,7 @@ myApp.controller('AlbumController', ['$log', 'AlbumService', function($log, Albu
 
     self.deleteAlbum = function(album) {
       self.showGenericChoice("Delete album", 
-                             "Are you sure you want to delete album " + album.displayName + "?",
+                             "Are you sure you want to delete album " + album.name + "?",
                              "Delete", function(){self.executeAlbumDelete(album)});
     }
 

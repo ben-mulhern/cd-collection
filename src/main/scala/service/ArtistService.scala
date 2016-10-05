@@ -33,7 +33,8 @@ object ArtistService extends LazyLogging {
       req.decode[String] { data =>
         logger.info("Received artist create request for this: " + data)
         val a: Artist = read[Artist](data)
-        httpJsonResponse(artistDal.createArtist(a))
+        val a2 = Artist.fixSortName(a)
+        httpJsonResponse(artistDal.createArtist(a2))
       }
 
     case req @ PUT -> Root / "artists" / artistId =>
@@ -41,7 +42,8 @@ object ArtistService extends LazyLogging {
         logger.info("Received artist update request for this: " + data)
         // TODO - some validation to make sure artistId from URI matches that from the body
         val a: Artist = read[Artist](data)
-        httpJsonResponse(artistDal.updateArtist(a))
+        val a2 = Artist.fixSortName(a)
+        httpJsonResponse(artistDal.updateArtist(a2))
       }    
 
     case req @ DELETE -> Root / "artists" / artistId =>
