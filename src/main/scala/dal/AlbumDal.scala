@@ -9,23 +9,26 @@ import response._
 
 trait AlbumDal extends SqlestDb {
 
+  val albumBaseQuery = 
+    select
+      .from(AlbumTable)
+      .innerJoin(ArtistTable)
+        .on(AlbumTable.artistId === ArtistTable.id)
+      .leftJoin(ArtistLinkTable)
+        .on(ArtistTable.id === ArtistLinkTable.relatedArtist)
+      .leftJoin(SecondArtistTable)
+        .on(ArtistLinkTable.parentArtist === SecondArtistTable.id)
+      .innerJoin(AlbumTypeTable)
+        .on(AlbumTable.albumType === AlbumTypeTable.albumType)
+      .leftJoin(AlbumSideTable)
+        .on(AlbumTable.id === AlbumSideTable.albumId)
+
   def getAlbums(searchTerm: String = "", artistId: Option[Int] = None): List[Album] = {
 
     val wildCardSearch = ("%" + searchTerm + "%").toUpperCase
 
     val baseQuery = 
-      select
-        .from(AlbumTable)
-        .innerJoin(ArtistTable)
-          .on(AlbumTable.artistId === ArtistTable.id)
-        .leftJoin(ArtistLinkTable)
-          .on(ArtistTable.id === ArtistLinkTable.relatedArtist)
-        .leftJoin(SecondArtistTable)
-          .on(ArtistLinkTable.parentArtist === SecondArtistTable.id)
-        .innerJoin(AlbumTypeTable)
-          .on(AlbumTable.albumType === AlbumTypeTable.albumType)
-        .leftJoin(AlbumSideTable)
-          .on(AlbumTable.id === AlbumSideTable.albumId)
+      albumBaseQuery
         .where((upper(ArtistTable.displayName) like wildCardSearch) ||
                (upper(AlbumTable.name) like wildCardSearch) ||
                (upper(AlbumSideTable.sideName) like wildCardSearch)) 
@@ -42,18 +45,7 @@ trait AlbumDal extends SqlestDb {
 
   def getAlbum(albumId: Int): Option[Album] = {
 
-    select
-      .from(AlbumTable)
-      .innerJoin(ArtistTable)
-        .on(AlbumTable.artistId === ArtistTable.id)
-      .leftJoin(ArtistLinkTable)
-        .on(ArtistTable.id === ArtistLinkTable.relatedArtist)
-      .leftJoin(SecondArtistTable)
-        .on(ArtistLinkTable.parentArtist === SecondArtistTable.id)
-      .innerJoin(AlbumTypeTable)
-        .on(AlbumTable.albumType === AlbumTypeTable.albumType)
-      .leftJoin(AlbumSideTable)
-        .on(AlbumTable.id === AlbumSideTable.albumId)
+    albumBaseQuery
       .where(ArtistTable.id === albumId)
       .extractHeadOption(albumExtractor)
    
@@ -173,6 +165,20 @@ trait AlbumDal extends SqlestDb {
      select
        .from(AlbumTypeTable)
        .extractAll(albumTypeExtractor) 
+  }
+
+  def getRandomUnplayedAlbums(c: Int): List[Album] = {
+
+    val rand = ScalarFunction0[Double]("rand")
+
+    albumBaseQuery
+      .where(!AlbumTypeTable.albumType.in("COM".constant, "BO".constant) &&
+             !AlbumTable.holly &&
+             !AlbumTable.deleted && 
+             AlbumTable.lastPlayed.isNull)
+      .orderBy(rand())
+      .limit(c)
+      .extractAll(albumExtractor)
   }
 }
 

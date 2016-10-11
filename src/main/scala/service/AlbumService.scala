@@ -61,6 +61,10 @@ object AlbumService extends LazyLogging {
       logger.info("Received request for list of album types")
       httpJsonResponse(albumDal.getAlbumTypes)   
 
+    case req @ GET -> Root / "albums" / "random" / c =>
+      logger.info(s"Received request for $c random unplayed albums")
+      httpJsonResponse(albumDal.getRandomUnplayedAlbums(c.toInt))
+
   }
 
 }
