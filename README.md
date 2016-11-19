@@ -11,6 +11,7 @@ Basic web app to learn some Angular, ScalaJS and Http4s. Uses Scala, Sqlest and 
 - Artist linking functionality
 
 #To-do - code/bugs
+- Maybe switch to React or Vue?
 - Re-write JS with ScalaJS
 - More intelligent filtering
 - Get title bar items to highlight
