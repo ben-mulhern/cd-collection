@@ -1,5 +1,5 @@
 # cd-collection
-Basic web app to learn some Angular, ScalaJS and Http4s. Uses Scala, Sqlest and H2 db for backend.
+Basic web app to learn some React, ScalaJS and Http4s. Uses Scala, Sqlest and H2 db for backend.
 
 #To-do - features
 
