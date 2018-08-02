@@ -1,0 +1,12 @@
+version: '3'
+services:
+  web:
+    build: .
+    image: cd-collection:v1
+    ports:
+     - "8080:8080"
+    volumes:
+      - ./:/root
+    environment:
+      - PORT=8080
+      - HOST=0.0.0.0

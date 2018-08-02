@@ -25,10 +25,16 @@ Basic web app to learn some React, ScalaJS and Http4s. Uses Scala, Sqlest and H2
 - Client side validation - icons to say content is valid
 - Better text box for selecting artist on new album window
 
-#To run
+# To run
 
-From SBT:
+## SBT
+```
+sbt ~re-start 
+```
 
-~re-start 
+## Docker
+```
+docker-compose up
+```
 
-to fire up server, then go to localhost:8080
+By default, application comes up on localhost:8080
